@@ -2,7 +2,7 @@
 name: Léo Guignard
 image: images/leo-guignard.jpg
 role: pi
-affiliation: Aix Marseille Université / CENTURI
+affiliation: IBDM, Aix Marseille Université
 aliases:
   - L. Guignard
   - Léo Guignard
@@ -18,4 +18,4 @@ links:
   twitter: GuignardLab
 ---
 
-Computer Scientist developing algorithms to quantify embryogenesis at the single-cell scale. Group Leader at [CENTURI](https://centuri-livingsystems.org) — Centre for Living Systems Integration, Aix-Marseille Université.
+Computer Scientist developing algorithms to quantify embryogenesis at the single-cell scale. Group Leader at the [Institut de Biologie du Développement de Marseille (IBDM)](https://www.ibdm.univ-amu.fr), Aix-Marseille Université.

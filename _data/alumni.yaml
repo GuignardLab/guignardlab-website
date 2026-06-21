@@ -1,49 +1,49 @@
 - name: Alice Gros
   image: images/Alice-Gros.jpeg
   role: Ph.D. Student
-  current: Postdoc, Dudin lab, Geneva University
+  description: Postdoc, Dudin lab, Geneva University
 
 - name: Jules Vanaret
   image: images/Jules-Vanaret.jpeg
   role: Research Engineer
-  current: Image analyst, Center for Imaging, EPFL Lausanne
+  description: Image analyst, Center for Imaging, EPFL Lausanne
 
 - name: Gesa Loof
   image: images/Gesa-Loof.jpg
   role: Postdoc
-  current: Research Software Engineer, Max Delbrück Center, Berlin
+  description: Research Software Engineer, Max Delbrück Center, Berlin
 
 - name: Solène Song
   image: images/solene-song.png
   role: Postdoc
-  current: Permanent researcher (CR CN), INSERM – MMG
+  description: Permanent researcher (CR CN), INSERM – MMG
 
 - name: Nessim Louafi
   image: images/Nessim-Louafi.jpg
   role: M2 Intern
-  current: Ph.D. student, Luca Giorgetti lab, FMI Basel
+  description: Ph.D. student, Luca Giorgetti lab, FMI Basel
 
 - name: Isabella Bicalho
   image: images/Isabella-Bichalo.jpg
   role: Ph.D. Student
-  current: Freelance data analyst
+  description: Freelance data analyst
 
 - name: Riccardo Cova
   image: images/riccardo-cova.jpg
   role: Erasmus Intern
-  current: Tech Team Leader, Keyence
+  description: Tech Team Leader, Keyence
 
 - name: Luìsa Vieira da Silva
   image: images/Luisa-vieira-da-silva.jpg
   role: M1 Intern
-  current: Master's student, Marseille
+  description: Master's student, Marseille
 
 - name: Polina Soloveva
   image: images/Polina-soloveva.jpg
   role: M1 Intern
-  current: Master's student, Paris
+  description: Master's student, Paris
 
 - name: Irmak Avci
   image: images/Irmak-avci.jpg
   role: M1 Intern
-  current: Master's student, Pisa
+  description: Master's student, Pisa

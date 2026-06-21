@@ -18,8 +18,8 @@ We actively seek innovative and motivated undergraduate students, graduate stude
 {%
   include button.html
   type="address"
-  tooltip="LIS UMR 7020 CNRS / AMU / UTLN — Campus de Luminy, Marseille"
-  link="https://www.google.com/maps/search/163+Avenue+de+Luminy,+13288+Marseille"
+  tooltip="IBDM UMR 7288 CNRS / AMU — Campus de Luminy, Marseille"
+  link="https://www.google.com/maps/search/Institut+de+Biologie+du+Développement+de+Marseille,+163+Avenue+de+Luminy,+13288+Marseille"
 %}
 
 {% include section.html %}
@@ -55,7 +55,7 @@ Send a CV with 2–3 reference contacts and a motivation letter outlining your r
 {% include section.html dark=true %}
 
 **Address**  
-LIS UMR 7020 CNRS / AMU / UTLN  
-Aix Marseille Université – Campus de Luminy  
+Institut de Biologie du Développement de Marseille (IBDM)  
+UMR 7288 CNRS / Aix Marseille Université  
 163 Avenue de Luminy  
 13288 Marseille, France
