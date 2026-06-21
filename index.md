@@ -3,6 +3,10 @@
 
 # GuignardLab
 
+<video autoplay loop muted playsinline style="display:block;margin:1rem auto;max-width:400px;width:100%">
+  <source src="images/logo-guignardlab-movie.mp4" type="video/mp4">
+</video>
+
 We develop computational methods to quantify morphogenesis at the single-cell scale in whole organisms throughout their development. Our research sits at the intersection of computer vision, machine learning, and developmental biology.
 
 {% include section.html %}
