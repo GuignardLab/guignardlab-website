@@ -18,8 +18,4 @@ We are a diverse team of computer scientists, physicists, biologists, and mathem
 
 ## Alumni
 
-| Name | Role | Current position |
-|------|------|-----------------|
-{% for alum in site.data.alumni -%}
-| {{ alum.name }} | {{ alum.role }} | {{ alum.current }} |
-{% endfor %}
+{% include list.html data="alumni" component="portrait" style="small" %}
