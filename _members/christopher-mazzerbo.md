@@ -1,6 +1,6 @@
 ---
 name: Christopher Mazzerbo
-image: images/photo.jpg
+image: images/Christopher-Mazzerbo.jpg
 role: phd
 ---
 

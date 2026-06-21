@@ -1,6 +1,6 @@
 ---
 name: Miquel Sendra
-image: images/photo.jpg
+image: images/Miquel-sendra.jpg
 role: postdoc
 ---
 

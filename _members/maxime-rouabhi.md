@@ -1,6 +1,6 @@
 ---
 name: Maxime Rouabhi
-image: images/photo.jpg
+image: images/Maxime-rouhabi.jpg
 role: undergrad
 description: M2 Intern
 ---

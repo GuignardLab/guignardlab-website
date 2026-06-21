@@ -1,6 +1,6 @@
 ---
 name: Léo Guignard
-image: images/photo.jpg
+image: images/leo-guignard.jpg
 role: pi
 affiliation: Aix Marseille Université / CENTURI
 aliases:
@@ -12,8 +12,8 @@ aliases:
   - Guignard L.
 links:
   email: leo.guignard@univ-amu.fr
-  orcid: 0000-0001-8713-9213
-  google-scholar: ETJoidYAAAAJ
+  orcid: 0000-0002-3686-1385
+  google-scholar: PCSQdWIAAAAJ
   github: leoguignard
   twitter: GuignardLab
 ---

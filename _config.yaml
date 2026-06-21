@@ -1,6 +1,6 @@
 # site properties and page defaults
-title: GuignardLab
-subtitle: Computational Morphogenesis
+title: Computer Science, Morphogenesis and Variability
+subtitle: From developing code to decoding development
 description: We develop computational methods to quantify morphogenesis at the single-cell scale in whole organisms throughout their development. Our research sits at the intersection of computer vision, machine learning, and developmental biology.
 header: images/background.jpg
 footer: images/background.jpg
@@ -9,11 +9,9 @@ proofer: false
 # site social media and other links
 links:
   email: contact@GuignardLab.com
-  orcid: 0000-0001-8713-9213
-  google-scholar: ETJoidYAAAAJ
+  orcid: 0000-0002-3686-1385
+  google-scholar: PCSQdWIAAAAJ
   github: GuignardLab
-  twitter: GuignardLab
-  youtube: GuignardLab
 
 ### jekyll settings
 
