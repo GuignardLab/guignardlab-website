@@ -1,7 +1,7 @@
 # site properties and page defaults
 title: GuignardLab
-subtitle: 
-description: An engaging 1-3 sentence description of your lab.
+subtitle: Computational Morphogenesis
+description: We develop computational methods to quantify morphogenesis at the single-cell scale in whole organisms throughout their development. Our research sits at the intersection of computer vision, machine learning, and developmental biology.
 header: images/background.jpg
 footer: images/background.jpg
 proofer: false

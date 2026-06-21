@@ -1,23 +1,67 @@
-- id: doi:10.1371/journal.pcbi.1007128
-  type: paper
-  description: Lorem ipsum _dolor_ **sit amet**, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-  date: 2020-12-4
-  image: https://journals.plos.org/ploscompbiol/article/figure/image?size=inline&id=info:doi/10.1371/journal.pcbi.1007128.g001&rev=2
-  buttons:
-    - type: manubot
-      link: https://greenelab.github.io/meta-review/
-    - type: source
-      text: Manuscript Source
-      link: https://github.com/greenelab/meta-review
-    - type: website
-      link: http://manubot.org/
+# Publications — auto-cited via DOI using manubot
+
+- id: doi:10.1101/2024.08.13.607832
+  date: 2024-08-14
   tags:
-    - open science
-    - collaboration
-  repo: greenelab/meta-review
+    - organoids
+    - imaging
 
-- id: doi:10.1016/j.csbj.2020.05.017
-  image: https://ars.els-cdn.com/content/image/1-s2.0-S2001037020302804-gr1.jpg
+- id: doi:10.1038/s41588-023-01435-6
+  date: 2023-07-13
+  tags:
+    - spatial transcriptomics
+    - mouse embryo
 
-- id: doi:10.7554/eLife.32822
-  image: https://iiif.elifesciences.org/lax:32822%2Felife-32822-fig8-v3.tif/full/863,/0/default.webp
+- id: doi:10.1038/s41587-021-01094-0
+  date: 2022-01-10
+  tags:
+    - cell lineage
+    - machine learning
+
+- id: doi:10.1126/science.aba4937
+  date: 2020-12-04
+  tags:
+    - gastruloids
+    - mouse
+
+- id: doi:10.1126/science.aar5663
+  date: 2020-07-03
+  tags:
+    - ascidian
+    - morphogenesis
+    - cell communication
+
+- id: doi:10.7554/eLife.34410
+  date: 2018-04-09
+  tags:
+    - cell lineage
+    - arthropod
+
+- id: doi:10.1016/j.cell.2018.09.031
+  date: 2018-10-04
+  tags:
+    - mouse embryo
+    - cell tracking
+
+- id: doi:10.15252/embr.201439123
+  date: 2015-02-06
+  tags:
+    - ER stress
+
+- id: doi:10.1109/ISBI.2015.7163872
+  date: 2015-04-01
+  tags:
+    - registration
+    - ascidian
+
+- id: doi:10.1109/ISBI.2014.6867986
+  date: 2014-04-01
+  tags:
+    - registration
+    - embryo
+
+- id: doi:10.1109/ISBI.2014.6868105
+  date: 2014-04-01
+  tags:
+    - segmentation
+    - embryo

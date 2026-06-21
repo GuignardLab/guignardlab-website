@@ -5,73 +5,57 @@ nav:
   tooltip: Email, address, and location
 ---
 
-# {% include icon.html icon="fa-regular fa-envelope" %}Contact
+# {% include icon.html icon="fa-regular fa-envelope" %}Contact & Join
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+We actively seek innovative and motivated undergraduate students, graduate students, and postdocs with interests in computer science and/or developmental biology. Feel free to reach out!
 
 {%
   include button.html
   type="email"
-  text="jane@smith.com"
-  link="jane@smith.com"
-%}
-{%
-  include button.html
-  type="phone"
-  text="(555) 867-5309"
-  link="+1-555-867-5309"
+  text="leo.guignard@univ-amu.fr"
+  link="leo.guignard@univ-amu.fr"
 %}
 {%
   include button.html
   type="address"
-  tooltip="Our location on Google Maps for easy navigation"
-  link="https://www.google.com/maps"
+  tooltip="LIS UMR 7020 CNRS / AMU / UTLN — Campus de Luminy, Marseille"
+  link="https://www.google.com/maps/search/163+Avenue+de+Luminy,+13288+Marseille"
 %}
 
 {% include section.html %}
 
+## How to apply
+
 {% capture col1 %}
 
-{%
-  include figure.html
-  image="images/photo.jpg"
-  caption="Lorem ipsum"
-%}
+**Undergraduates & Master's students**
+
+Send a CV, academic transcript, and a motivation letter directly to Léo. References are optional.
 
 {% endcapture %}
 
 {% capture col2 %}
 
-{%
-  include figure.html
-  image="images/photo.jpg"
-  caption="Lorem ipsum"
-%}
+**PhD candidates**
 
-{% endcapture %}
+Send a CV, university grades, motivation letter, and ideally one reference. Check the [CENTURI international call](https://centuri-livingsystems.org) for funded openings.
 
-{% include cols.html col1=col1 col2=col2 %}
-
-{% include section.html dark=true %}
-
-{% capture col1 %}
-Lorem ipsum dolor sit amet  
-consectetur adipiscing elit  
-sed do eiusmod tempor
-{% endcapture %}
-
-{% capture col2 %}
-Lorem ipsum dolor sit amet  
-consectetur adipiscing elit  
-sed do eiusmod tempor
 {% endcapture %}
 
 {% capture col3 %}
-Lorem ipsum dolor sit amet  
-consectetur adipiscing elit  
-sed do eiusmod tempor
+
+**Postdoctoral researchers**
+
+Send a CV with 2–3 reference contacts and a motivation letter outlining your research interests. Candidates with independent funding are also welcome.
+
 {% endcapture %}
 
 {% include cols.html col1=col1 col2=col2 col3=col3 %}
+
+{% include section.html dark=true %}
+
+**Address**  
+LIS UMR 7020 CNRS / AMU / UTLN  
+Aix Marseille Université – Campus de Luminy  
+163 Avenue de Luminy  
+13288 Marseille, France
