@@ -1,7 +1,7 @@
 ---
 ---
 
-# GuignardLab
+# Guignard Lab
 
 <video autoplay loop muted playsinline style="display:block;margin:1rem auto;max-width:400px;width:100%">
   <source src="images/logo-guignardlab-movie.mp4" type="video/mp4">
