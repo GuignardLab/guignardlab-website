@@ -63,7 +63,7 @@ We build open-source tools for 3D image registration, spatial transcriptomics an
 
 {% capture text %}
 
-We are a diverse team of computer scientists, physicists, biologists, and mathematicians based at the Institut de Biologie du Développement de Marseille (IBDM), Aix-Marseille Université.
+We are a diverse team of computer scientists, physicists, biologists, and mathematicians based at IBDM & the Turing Centre for Living Systems, Aix-Marseille Université & CNRS, Marseille.
 
 {%
   include button.html

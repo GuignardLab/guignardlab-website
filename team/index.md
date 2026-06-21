@@ -7,7 +7,7 @@ nav:
 
 # {% include icon.html icon="fa-solid fa-users" %}Team
 
-We are a diverse team of computer scientists, physicists, biologists, and mathematicians based at the [Institut de Biologie du Développement de Marseille (IBDM)](https://www.ibdm.univ-amu.fr), Aix-Marseille Université, France. We are always looking for motivated students and postdocs; see our [contact page](../contact) for how to apply.
+We are a diverse team of computer scientists, physicists, biologists, and mathematicians based at [IBDM](https://www.ibdm.univ-amu.fr) (UMR7288) & the [Turing Centre for Living Systems](https://centuri-livingsystems.org), Aix-Marseille Université & CNRS, Marseille, France. We are always looking for motivated students and postdocs; see our [contact page](../contact) for how to apply.
 
 {% include section.html %}
 

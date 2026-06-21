@@ -18,7 +18,7 @@ We actively seek innovative and motivated undergraduate students, graduate stude
 {%
   include button.html
   type="address"
-  tooltip="IBDM UMR 7288 CNRS / AMU — Campus de Luminy, Marseille"
+  tooltip="IBDM UMR7288, Aix-Marseille Université & CNRS — Campus de Luminy, Marseille"
   link="https://www.google.com/maps/search/Institut+de+Biologie+du+Développement+de+Marseille,+163+Avenue+de+Luminy,+13288+Marseille"
 %}
 
@@ -55,7 +55,7 @@ Send a CV with 2–3 reference contacts and a motivation letter outlining your r
 {% include section.html dark=true %}
 
 **Address**  
-Institut de Biologie du Développement de Marseille (IBDM)  
-UMR 7288 CNRS / Aix Marseille Université  
+Institut de Biologie du Développement de Marseille (IBDM—UMR7288)  
+Aix-Marseille Université & CNRS / Turing Centre for Living Systems  
 163 Avenue de Luminy  
 13288 Marseille, France

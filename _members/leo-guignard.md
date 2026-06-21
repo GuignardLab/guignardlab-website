@@ -2,7 +2,7 @@
 name: Léo Guignard
 image: images/leo-guignard.jpg
 role: pi
-affiliation: IBDM, Aix Marseille Université
+affiliation: Aix-Marseille Université & CNRS, IBDM—UMR7288 & Turing Centre for Living Systems, Marseille
 aliases:
   - L. Guignard
   - Léo Guignard
@@ -18,4 +18,4 @@ links:
   twitter: GuignardLab
 ---
 
-Computer Scientist developing algorithms to quantify embryogenesis at the single-cell scale. Group Leader at the [Institut de Biologie du Développement de Marseille (IBDM)](https://www.ibdm.univ-amu.fr), Aix-Marseille Université.
+Computer Scientist developing algorithms to quantify embryogenesis at the single-cell scale. Group Leader at [IBDM](https://www.ibdm.univ-amu.fr) (UMR7288) & [Turing Centre for Living Systems](https://centuri-livingsystems.org), Aix-Marseille Université & CNRS, Marseille.
