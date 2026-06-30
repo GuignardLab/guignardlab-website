@@ -3,7 +3,7 @@
 
 # Guignard Lab
 
-<video autoplay loop muted playsinline style="display:block;margin:1rem auto;max-width:400px;width:100%">
+<video autoplay loop muted playsinline style="display:block;margin:1rem auto;max-width:400px;width:100%;clip-path:inset(10px 60px 0 60px)" id="labvideo">
   <source src="images/logo-guignardlab-movie.mp4" type="video/mp4">
 </video>
 
