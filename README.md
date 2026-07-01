@@ -5,6 +5,6 @@
 
   # GuignardLab's Website
 
-  Visit **[guignardlab.github.io/guignardlab-website](https://guignardlab.github.io/guignardlab-website)** 🚀
+  Visit **[guignardlab.com](http://guignardlab.com)** 🚀
 
   _Built with [Lab Website Template](https://greene-lab.gitbook.io/lab-website-template-docs)_
