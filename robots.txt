@@ -1,1 +1,1 @@
-Sitemap: http://guignardlab.com/sitemap.xml
+Sitemap: https://guignardlab.com/sitemap.xml
