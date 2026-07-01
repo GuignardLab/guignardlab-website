@@ -1,36 +1,14 @@
 # DO NOT EDIT, GENERATED AUTOMATICALLY
 
-- id: doi:10.7554/eLife.107540
-  title: Longitudinal tracking of neuronal activity from the same cells in the developing
-    brain using Track2p
+- id: doi:10.21769/bioprotoc.5607
+  title: 'sc3D: A Comprehensive Tool for 3D Spatial Transcriptomic Analysis'
   authors:
-  - Jure Majnik
-  - Manon Mantez
-  - Sofia Zangila
-  - "St\xE9phane Bugeon"
+  - Miquel Sendra
+  - Adriano Bolondi
   - "L\xE9o Guignard"
-  - Jean-Claude Platel
-  - Rosa Cossart
-  publisher: eLife
-  date: '2025-12-10'
-  link: https://doi.org/hb8bx9
-  orcid: 0000-0002-3686-1385
-  plugin: orcid.py
-  file: orcid.yaml
-- id: doi:10.7554/eLife.107540.3
-  title: Longitudinal tracking of neuronal activity from the same cells in the developing
-    brain using Track2p
-  authors:
-  - Jure Majnik
-  - Manon Mantez
-  - Sofia Zangila
-  - "St\xE9phane Bugeon"
-  - "L\xE9o Guignard"
-  - Jean-Claude Platel
-  - Rosa Cossart
-  publisher: eLife
-  date: '2025-12-10'
-  link: https://doi.org/hb8bzb
+  publisher: BIO-PROTOCOL
+  date: '2026-01-01'
+  link: https://doi.org/hb8xx6
   orcid: 0000-0002-3686-1385
   plugin: orcid.py
   file: orcid.yaml
@@ -56,59 +34,6 @@
   publisher: Communications Biology
   date: '2025-11-29'
   link: https://doi.org/hb8bzc
-  orcid: 0000-0002-3686-1385
-  plugin: orcid.py
-  file: orcid.yaml
-- id: doi:10.7554/eLife.107540.2
-  title: Longitudinal tracking of neuronal activity from the same cells in the developing
-    brain using Track2p
-  authors:
-  - Jure Majnik
-  - Manon Mantez
-  - Sofia Zangila
-  - "St\xE9phane Bugeon"
-  - Leo Guignard
-  - Jean-Claude Platel
-  - Rosa Cossart
-  publisher: eLife Sciences Publications, Ltd
-  date: '2025-10-23'
-  link: https://doi.org/hb8bzd
-  orcid: 0000-0002-3686-1385
-  plugin: orcid.py
-  file: orcid.yaml
-- id: doi:10.7554/eLife.107154
-  title: A quantitative pipeline for whole-mount deep imaging and analysis of multi-layered
-    organoids across scales
-  authors:
-  - Alice Gros
-  - Jules Vanaret
-  - Valentin Dunsing-Eichenauer
-  - Agathe Rostan
-  - Philippe Roudot
-  - "Pierre-Fran\xE7ois Lenne"
-  - "L\xE9o Guignard"
-  - Sham Tlili
-  publisher: eLife
-  date: '2026-05-22'
-  link: https://doi.org/hb8bzf
-  orcid: 0000-0002-3686-1385
-  plugin: orcid.py
-  file: orcid.yaml
-- id: doi:10.7554/eLife.107154.1
-  title: A quantitative pipeline for whole-mount deep imaging and analysis of multi-layered
-    organoids across scales
-  authors:
-  - Alice Gros
-  - Jules Vanaret
-  - Valentin Dunsing-Eichenauer
-  - Agathe Rostan
-  - Philippe Roudot
-  - "Pierre-Fran\xE7ois Lenne"
-  - "L\xE9o Guignard"
-  - Sham Tlili
-  publisher: eLife Sciences Publications, Ltd
-  date: '2025-07-14'
-  link: https://doi.org/hb8bzg
   orcid: 0000-0002-3686-1385
   plugin: orcid.py
   file: orcid.yaml
