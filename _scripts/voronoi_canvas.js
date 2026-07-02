@@ -1,7 +1,7 @@
 function registerVoronoi(canvas, section) {
     let mouseX = 0;
     let mouseY = 0;
-    const gl = canvas.getContext('webgl', { antialias: true }) || canvas.getContext('experimental-webgl', { antialias: true });
+    const gl = canvas.getContext('webgl', {antialias: false}) || canvas.getContext('experimental-webgl', {antialias: false});
     gl.getExtension('OES_standard_derivatives');
     function resize(){
         const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -18,7 +18,7 @@ function registerVoronoi(canvas, section) {
     gl_Position = vec4(aPos, 0.0, 1.0);
     }`;
 
-    const MAX_PTS = 128;
+    const MAX_PTS = 49;
 
     const fragSrc = `
     #extension GL_OES_standard_derivatives : enable
@@ -136,7 +136,7 @@ function registerVoronoi(canvas, section) {
         return [((n>>16)&255)/255, ((n>>8)&255)/255, (n&255)/255];
     }
 
-    const COUNT = 128;
+    const COUNT = 49;
     function rand(a,b){ return a + Math.random()*(b-a); }
 
     const pts = [];
