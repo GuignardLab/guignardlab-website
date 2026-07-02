@@ -5,4 +5,4 @@ role: undergrad
 description: M2 Intern
 ---
 
-Trained in Neurosciences and Computer Science; interested in neuronal morphology.
+Currently trained both in Neurosciences and Computer Science. I'm interested to look how algorithms can help us understand neuronal morphology.
