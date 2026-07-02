@@ -4,4 +4,4 @@ image: images/Giannis-Liaskas.jpg
 role: phd
 ---
 
-Physicist exploring the mechanisms of embryonic development through physics and computer science.
+Giannis is a physicist interested in the intricate processes that take place during the development of an embryo. Using physics, computer science and biology Giannis aims to uncover the fundamental mechanisms that govern the final form of an organism.
