@@ -25,10 +25,10 @@
   --overlay: #ffffff10;
 }
 
-[data-dark="false"]#labvideo {
+[data-dark="false"] #labvideo {
   filter:invert(0) saturate(0) contrast(2);
 }
-[data-dark="true"]#labvideo {
+[data-dark="true"] #labvideo {
   filter:invert(1) saturate(0) contrast(0.88);
 }
 

@@ -13,6 +13,8 @@ We develop computational methods to quantify morphogenesis at the single-cell sc
 
 ## Highlights
 
+<script src="_scripts/voronoi_canvas.js"></script>
+
 {% capture text %}
 
 How do embryos reproducibly build complex organisms from a single cell? We develop algorithms and pipelines — combining graph methods, machine learning, and big data — to analyze fluorescence microscopy and spatial transcriptomics data at single-cell resolution.
