@@ -7,13 +7,13 @@ nav:
 
 # {% include icon.html icon="fa-solid fa-wrench" %}Projects
 
-We develop open-source tools for image registration, spatial transcriptomics, organoid analysis, and cell lineage handling. All software is freely available on [GitHub](https://github.com/GuignardLab).
+We develop open-source tools for image registration, spatial transcriptomics, organoid analysis, and cell lineage handling. All software is open source available on [GitHub](https://github.com/GuignardLab).
 
-{% include tags.html tags="publication, resource, website" %}
+<!-- {% include tags.html tags="publication, resource, website" %}
 
 {% include search-info.html %}
 
-{% include section.html %}
+{% include section.html %} -->
 
 ## Featured
 
