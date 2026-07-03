@@ -3,7 +3,7 @@
 # team member roles
 
 principal-investigator:
-  icon: fa-solid fa-microscope
+  icon: fa-solid fa-code-merge
   description: Principal Investigator
 
 postdoc:

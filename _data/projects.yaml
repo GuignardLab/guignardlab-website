@@ -1,7 +1,7 @@
 - title: Tapenade
   subtitle: 3D organoid image analysis
   group: featured
-  image: images/photo.jpg
+  # image: images/photo.jpg
   link: https://github.com/GuignardLab/tapenade
   description: A fully-visual pipeline for quantitative analysis of 3D organoid images from deep imaging microscopy.
   repo: GuignardLab/tapenade
@@ -12,7 +12,7 @@
 - title: sc3D
   subtitle: 3D spatial transcriptomics
   group: featured
-  image: images/photo.jpg
+  # image: images/photo.jpg
   link: https://github.com/GuignardLab/sc3D
   description: A library for manipulating and analyzing 3D spatial transcriptomics data at near single-cell resolution.
   repo: GuignardLab/sc3D
@@ -23,7 +23,7 @@
 - title: registration-tools
   subtitle: 3D movie registration
   group: featured
-  image: images/photo.jpg
+  # image: images/photo.jpg
   link: https://github.com/GuignardLab/registration-tools
   description: A library to register 3D movies in space and/or time, enabling alignment of live-imaging datasets.
   repo: GuignardLab/registration-tools
@@ -34,7 +34,7 @@
 - title: napari-sc3D-viewer
   subtitle: napari plugin
   group: featured
-  image: images/photo.jpg
+  # image: images/photo.jpg
   link: https://github.com/GuignardLab/napari-sc3D-viewer
   description: A napari viewer designed for interactive exploration of 3D spatial transcriptomics data.
   repo: GuignardLab/napari-sc3D-viewer
@@ -44,7 +44,7 @@
 
 - title: napari-3D-registration
   subtitle: napari plugin
-  image: images/photo.jpg
+  # image: images/photo.jpg
   link: https://github.com/GuignardLab/napari-3D-registration
   description: A napari plugin providing a graphical interface for the registration-tools library.
   repo: GuignardLab/napari-3D-registration
@@ -54,27 +54,28 @@
 
 - title: LineageTree
   subtitle: Cell lineage handling
-  image: images/photo.jpg
-  link: https://github.com/leoguignard/LineageTree
+  group: featured
+  # image: images/photo.jpg
+  link: https://github.com/guignardlab/LineageTree
   description: A library to handle, manipulate, and analyse cell lineage trees from time-lapse imaging.
-  repo: leoguignard/LineageTree
+  repo: guignardlab/LineageTree
   tags:
     - software
     - cell lineage
 
 - title: ASTEC
   subtitle: Cell detection & tracking
-  image: images/photo.jpg
-  link: https://github.com/leoguignard/ASTEC
+  # image: images/photo.jpg
+  link: https://github.com/guignardlab/ASTEC
   description: Automated cell detection and tracking algorithm for whole-embryo light-sheet imaging data.
-  repo: leoguignard/ASTEC
+  repo: guignardlab/ASTEC
   tags:
     - software
     - cell tracking
 
 - title: napari-obj
   subtitle: napari plugin
-  image: images/photo.jpg
+  # image: images/photo.jpg
   link: https://github.com/GuignardLab/napari-obj
   description: A napari plugin for loading and displaying .obj 3D mesh files.
   repo: GuignardLab/napari-obj
@@ -82,37 +83,37 @@
     - software
     - napari
 
-- title: SVF
-  subtitle: Statistical Vector Flow
-  image: images/photo.jpg
-  link: https://github.com/leoguignard/SVF
-  description: A computational library implementing Statistical Vector Flow for morphological atlas construction.
-  repo: leoguignard/SVF
-  tags:
-    - software
+# - title: SVF
+#   subtitle: Statistical Vector Flow
+#   # image: images/photo.jpg
+#   link: https://github.com/leoguignard/SVF
+#   description: A computational library implementing Statistical Vector Flow for morphological atlas construction.
+#   repo: guignardlab/SVF
+#   tags:
+#     - software
 
-- title: Mouse-Atlas
-  subtitle: Mouse embryo tracking
-  image: images/photo.jpg
-  link: https://github.com/leoguignard/Mouse-Atlas
-  description: Standalone implementation of the tracking code from McDole et al. 2018 (Cell).
-  repo: leoguignard/Mouse-Atlas
-  tags:
-    - software
-    - cell tracking
+# - title: Mouse-Atlas
+#   subtitle: Mouse embryo tracking
+#   # image: images/photo.jpg
+#   link: https://github.com/guignardlab/Mouse-Atlas
+#   description: Standalone implementation of the tracking code from McDole et al. 2018 (Cell).
+#   repo: guignardlab/Mouse-Atlas
+#   tags:
+#     - software
+#     - cell tracking
 
-- title: Cell-cell interaction model
-  subtitle: Signaling simulation
-  image: images/photo.jpg
-  link: https://github.com/leoguignard/cell-cell-interaction-model
-  description: Computational model simulating cell-cell signaling interactions during embryogenesis.
-  repo: leoguignard/cell-cell-interaction-model
-  tags:
-    - software
+# - title: Cell-cell interaction model
+#   subtitle: Signaling simulation
+#   # image: images/photo.jpg
+#   link: https://github.com/guignardlab/cell-cell-interaction-model
+#   description: Computational model simulating cell-cell signaling interactions during embryogenesis.
+#   repo: guignardlab/cell-cell-interaction-model
+#   tags:
+#     - software
 
 - title: CenTuri Course
   subtitle: Python via Turing models
-  image: images/photo.jpg
+  # image: images/photo.jpg
   link: https://github.com/GuignardLab/CenTuri-Course
   description: Educational resource teaching Python programming through Turing-model simulations of biological patterns.
   repo: GuignardLab/CenTuri-Course
