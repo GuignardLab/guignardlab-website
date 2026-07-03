@@ -27,60 +27,61 @@ function registerVoronoi(canvas, section) {
     uniform int uCount;
     uniform vec2 uPoints[${MAX_PTS}];
     uniform vec3 uColors[${MAX_PTS}];
+    uniform vec3 mouseColor;
     uniform vec2 iMouse;
 
     float dist2(vec2 a, vec2 b){
-    vec2 d = a-b;
-    return dot(d,d);
+        vec2 d = a-b;
+        return dot(d,d);
     }
 
     void main(){
-    vec2 uv = gl_FragCoord.xy / uRes.xy;
-    vec2 p = vec2(uv.x * (uRes.x/uRes.y), uv.y);
+        vec2 uv = gl_FragCoord.xy / uRes.xy;
+        vec2 p = vec2(uv.x * (uRes.x/uRes.y), uv.y);
 
-    float best = 1e9;
-    float second = 1e9;
-    vec3 bestCol = uColors[0];
-    for(int i=0;i<${MAX_PTS};i++){
-        if(i>=uCount) break;
-        vec2 q = uPoints[i];
+        float best = 1e9;
+        float second = 1e9;
+        vec3 bestCol = uColors[0];
+        for(int i=0;i<${MAX_PTS};i++){
+            if(i>=uCount) break;
+            vec2 q = uPoints[i];
+            q.x *= (uRes.x/uRes.y);
+            float d = dist2(p,q);
+            if(d < best){
+                second = best;
+                best = d;
+                bestCol = uColors[i];
+            } else if(d < second){
+                second = d;
+            }
+        }
+        vec2 q = iMouse;
         q.x *= (uRes.x/uRes.y);
         float d = dist2(p,q);
         if(d < best){
             second = best;
             best = d;
-            bestCol = uColors[i];
+            bestCol = mouseColor;
         } else if(d < second){
             second = d;
         }
-    }
-    vec2 q = iMouse;
-    q.x *= (uRes.x/uRes.y);
-    float d = dist2(p,q);
-    if(d < best){
-        second = best;
-        best = d;
-        bestCol = vec3(0.85, 0.6, 0.75);
-    } else if(d < second){
-        second = d;
-    }
 
-    vec3 col = bestCol;
+        vec3 col = bestCol;
 
-    float shade = clamp(1.0 - sqrt(best)*0.55, 0.35, 1.0);
-    col *= shade;
+        float shade = clamp(1.0 - sqrt(best)*0.55, 0.35, 1.0);
+        col *= shade;
 
-    float edgeDist = sqrt(second) - sqrt(best);
-    float pixelWidth = fwidth(edgeDist);
-    float edgeMask = 1.0 - smoothstep(0.0, pixelWidth*1.6, edgeDist); 
+        float edgeDist = sqrt(second) - sqrt(best);
+        float pixelWidth = fwidth(edgeDist);
+        float edgeMask = 1.0 - smoothstep(0.0, pixelWidth*1.6, edgeDist); 
 
-    vec3 edgeCol = vec3(0.043, 0.051, 0.063);
-    col = mix(col, edgeCol, edgeMask*0.5);
+        vec3 edgeCol = vec3(0.043, 0.051, 0.063);
+        col = mix(col, edgeCol, edgeMask*0.5);
 
-    float vig = smoothstep(1.2, 0.2, length(uv-0.5)*1.3);
-    col *= mix(0.85,1.0,vig);
+        float vig = smoothstep(1.2, 0.2, length(uv-0.5)*1.3);
+        col *= mix(0.85,1.0,vig);
 
-    gl_FragColor = vec4(col, 1.0);
+        gl_FragColor = vec4(col, 1.0);
     }`;
 
     function setMousePosition(e) {
@@ -107,15 +108,15 @@ function registerVoronoi(canvas, section) {
     gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, fragSrc));
     gl.linkProgram(prog);
     if(!gl.getProgramParameter(prog, gl.LINK_STATUS)){
-    console.error(gl.getProgramInfoLog(prog));
+        console.error(gl.getProgramInfoLog(prog));
     }
     gl.useProgram(prog);
 
     const buf = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, buf);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-    -1,-1,  1,-1,  -1,1,
-    -1,1,   1,-1,   1,1
+        -1,-1,  1,-1,  -1,1,
+        -1,1,   1,-1,   1,1
     ]), gl.STATIC_DRAW);
     const aPos = gl.getAttribLocation(prog, 'aPos');
     gl.enableVertexAttribArray(aPos);
@@ -126,11 +127,13 @@ function registerVoronoi(canvas, section) {
     const uPoints = gl.getUniformLocation(prog, 'uPoints');
     const uColors = gl.getUniformLocation(prog, 'uColors');
     const mouseLocation = gl.getUniformLocation(prog, "iMouse");
+    const mouseColor = gl.getUniformLocation(prog, "mouseColor");
 
     // Claude's awful taste in colour (keeping it as a comment as a memento of shame)
     // const palette = ['#1c1f24','#3b2f2c','#7a3b2e','#c2522f','#ff5a36','#ffb24d'];
 
     const palette = ['#ffffff','#ffffff','#ffffff','#ffffff','#ffffff','#ffffff'];
+    canvas.setAttribute("currentMouseColor", '#d899bf');
     function hexToRgb(hex){
         const n = parseInt(hex.slice(1),16);
         return [((n>>16)&255)/255, ((n>>8)&255)/255, (n&255)/255];
@@ -141,13 +144,13 @@ function registerVoronoi(canvas, section) {
 
     const pts = [];
     for(let i=0;i<COUNT;i++){
-    pts.push({
-        x: rand(0,1.6),
-        y: rand(0,1),
-        vx: rand(-1,1)*0.025,
-        vy: rand(-1,1)*0.025,
-        cIdx: i % palette.length
-    });
+        pts.push({
+            x: rand(0,1.6),
+            y: rand(0,1),
+            vx: rand(-1,1)*0.025,
+            vy: rand(-1,1)*0.025,
+            cIdx: i % palette.length
+        });
     }
 
     let t0 = performance.now(); // gets current time!
@@ -155,21 +158,21 @@ function registerVoronoi(canvas, section) {
     const colorsBuf = new Float32Array(MAX_PTS*3);
 
     function step(dt){
-    const aspect = window.innerWidth / window.innerHeight;
-    for(const p of pts){
-        p.x += p.vx * dt;
-        p.y += p.vy * dt;
+        const aspect = window.innerWidth / window.innerHeight;
+        for(const p of pts){
+            p.x += p.vx * dt;
+            p.y += p.vy * dt;
 
-        if(p.x < 0){ p.x = 0; p.vx *= -1; }
-        if(p.x > aspect){ p.x = aspect; p.vx *= -1; }
-        if(p.y < 0){ p.y = 0; p.vy *= -1; }
-        if(p.y > 1){ p.y = 1; p.vy *= -1; }
+            if(p.x < 0){ p.x = 0; p.vx *= -1; }
+            if(p.x > aspect){ p.x = aspect; p.vx *= -1; }
+            if(p.y < 0){ p.y = 0; p.vy *= -1; }
+            if(p.y > 1){ p.y = 1; p.vy *= -1; }
 
-        p.vx += rand(-1,1)*0.0006;
-        p.vy += rand(-1,1)*0.0006;
-        p.vx *= 0.996;
-        p.vy *= 0.996;
-    }
+            p.vx += rand(-1,1)*0.0006;
+            p.vy += rand(-1,1)*0.0006;
+            p.vx *= 0.996;
+            p.vy *= 0.996;
+        }
     }
 
     function render(now){
@@ -192,6 +195,9 @@ function registerVoronoi(canvas, section) {
         }
         gl.uniform2fv(uPoints, pointsBuf);
         gl.uniform3fv(uColors, colorsBuf);
+        let mr, mg, mb;
+        [mr, mg, mb] = hexToRgb(canvas.getAttribute("currentMouseColor"));
+        gl.uniform3f(mouseColor, mr, mg, mb);
 
         gl.drawArrays(gl.TRIANGLES, 0, 6);
         requestAnimationFrame(render);
@@ -207,3 +213,11 @@ canvas.style = "display:block; width:-webkit-fill-available; height:-webkit-fill
 section = document.currentScript.parentElement; // for the current use of it, this will be the highlights section
 section.insertBefore(canvas, section.children[0]);
 registerVoronoi(canvas, section);
+
+// <a> elements aren't built yet at this point so we delay adding the EventListeners until the window is loaded
+window.addEventListener('load', () => {
+    for (element of document.getElementsByTagName("a")) {
+        element.addEventListener("mouseenter", (e) => {canvas.setAttribute("currentMouseColor", '#5a89e0')});
+        element.addEventListener("mouseleave", (e) => {canvas.setAttribute("currentMouseColor", '#d899bf')});
+    }
+});
