@@ -27,31 +27,46 @@ function registerVoronoi(canvas, section) {
     const COUNT = 49;
     function rand(a,b){ return a + Math.random()*(b-a); }
 
-    const pts = [];
-    for(let i=0;i<COUNT;i++){
-        pts.push({
-            x: rand(0,1.6),
-            y: rand(0,1),
-            vx: rand(-1,1)*0.025,
-            vy: rand(-1,1)*0.025,
-        });
-    }
+    const noise = createNoise2D();
 
+    // Blue-noise initial placement (Mitchell's best-candidate): even, natural
+    // spacing without the clumps and gaps of uniform random. x spans [0, aspect]
+    // so the points fill the (wider-than-tall) viewport.
+    const aspect0 = window.innerWidth / window.innerHeight;
+    const pts = blueNoise(COUNT, aspect0, 1).map((s) => ({
+        x: s.x,
+        y: s.y,
+        vx: rand(-1,1)*0.025,
+        vy: rand(-1,1)*0.025,
+        seed: rand(0,1000),   // each point samples its own "lane" of the noise field
+    }));
+
+    // Tunables for the wandering motion.
+    const ACCEL = 0.02;      // steering strength toward the noise-chosen heading
+    const DAMP = 0.95;       // velocity damping (lower = calmer)
+    const NOISE_SPEED = 0.15; // how fast headings evolve over time
+
+    let noiseT = 0;
     function step(dt){
+        noiseT += dt * NOISE_SPEED;
         const aspect = window.innerWidth / window.innerHeight;
         for(const p of pts){
+            // Perlin noise gives a heading that rotates smoothly over time, so paths
+            // curve organically instead of drifting straight with uncorrelated jitter.
+            const angle = noise(p.seed, noiseT) * Math.PI * 2;
+            p.vx += Math.cos(angle) * ACCEL * dt;
+            p.vy += Math.sin(angle) * ACCEL * dt;
+            p.vx *= DAMP;
+            p.vy *= DAMP;
+
             p.x += p.vx * dt;
             p.y += p.vy * dt;
 
-            if(p.x < 0){ p.x = 0; p.vx *= -1; }
-            if(p.x > aspect){ p.x = aspect; p.vx *= -1; }
-            if(p.y < 0){ p.y = 0; p.vy *= -1; }
-            if(p.y > 1){ p.y = 1; p.vy *= -1; }
-
-            p.vx += rand(-1,1)*0.0006;
-            p.vy += rand(-1,1)*0.0006;
-            p.vx *= 0.996;
-            p.vy *= 0.996;
+            // Reflect at the edges (set velocity inward so it can't re-trigger).
+            if(p.x < 0){ p.x = 0; p.vx = Math.abs(p.vx); }
+            if(p.x > aspect){ p.x = aspect; p.vx = -Math.abs(p.vx); }
+            if(p.y < 0){ p.y = 0; p.vy = Math.abs(p.vy); }
+            if(p.y > 1){ p.y = 1; p.vy = -Math.abs(p.vy); }
         }
     }
 
@@ -154,6 +169,54 @@ function registerVoronoi(canvas, section) {
     document.addEventListener('visibilitychange', sync);
 
     requestAnimationFrame(render);
+}
+
+// Blue-noise sampling via Mitchell's best-candidate algorithm: each new point is
+// the farthest-from-its-neighbours of `k` random candidates, yielding even spacing.
+// Returns exactly `count` points in the box [0,w] x [0,h].
+function blueNoise(count, w, h, k = 12){
+    const pts = [{ x: Math.random()*w, y: Math.random()*h }];
+    for(let i=1;i<count;i++){
+        let best = null, bestDist = -1;
+        for(let c=0;c<k;c++){
+            const cand = { x: Math.random()*w, y: Math.random()*h };
+            let nearest = Infinity;
+            for(const p of pts){
+                const dx = cand.x - p.x, dy = cand.y - p.y;
+                nearest = Math.min(nearest, dx*dx + dy*dy);
+            }
+            if(nearest > bestDist){ bestDist = nearest; best = cand; }
+        }
+        pts.push(best);
+    }
+    return pts;
+}
+
+// Classic 2D Perlin noise (Ken Perlin's improved noise), dependency-free.
+// Returns a sampler f(x, y) -> roughly [-1, 1], smooth and continuous.
+function createNoise2D(){
+    const perm = new Uint8Array(512);
+    const src = Uint8Array.from({length:256}, (_, i) => i);
+    for(let i=255;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        const tmp = src[i]; src[i] = src[j]; src[j] = tmp;
+    }
+    for(let i=0;i<512;i++) perm[i] = src[i & 255];
+
+    const fade = (t) => t*t*t*(t*(t*6-15)+10);
+    const lerp = (a,b,t) => a + t*(b-a);
+    const grad = (h,x,y) => ((h & 1) ? -x : x) + ((h & 2) ? -y : y);
+
+    return function(x, y){
+        const xi = Math.floor(x) & 255, yi = Math.floor(y) & 255;
+        const xf = x - Math.floor(x), yf = y - Math.floor(y);
+        const u = fade(xf), v = fade(yf);
+        const aa = perm[perm[xi] + yi],     ba = perm[perm[xi+1] + yi];
+        const ab = perm[perm[xi] + yi+1],   bb = perm[perm[xi+1] + yi+1];
+        const x1 = lerp(grad(aa, xf, yf),   grad(ba, xf-1, yf),   u);
+        const x2 = lerp(grad(ab, xf, yf-1), grad(bb, xf-1, yf-1), u);
+        return lerp(x1, x2, v);
+    };
 }
 
 function loadScript(src){
