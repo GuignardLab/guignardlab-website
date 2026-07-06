@@ -45,19 +45,39 @@ function registerVoronoi(canvas, section) {
     const ACCEL = 0.04;       // steering strength (each noise lane is mean 0, |force| ~0.5)
     const DAMP = 0.95;        // velocity damping (lower = calmer)
     const NOISE_SPEED = 0.15; // how fast the steering force evolves over time
-    const DRIFT_X = 0.010;    // steady current on top of the wander (normalized units/dt)
-    const DRIFT_Y = 0.003;    // a gentle diagonal reads more organic than pure horizontal
+    const DRIFT_SPEED = 0.02; // strength of the steady current (normalized units/dt)
+    const TURN_TAU = 0.6;     // seconds for the current to swing to a new heading (smoothness)
 
     let noiseT = 0;
+    let driftAngle = rand(0, Math.PI * 2);   // heading of the current
+    let driftTarget = driftAngle;            // heading it's easing toward
+    let driftClock = 0;                      // seconds since the last heading change
+    let nextTurn = 10 + rand(-2, 2);         // re-randomize the heading every 10 +/- 2 s
+
     function step(dt){
         noiseT += dt * NOISE_SPEED;
+        const sec = dt * 0.3;   // real seconds this frame (dt = elapsedMs / 300)
+
+        // Every 10 +/- 2 s pick a new random heading for the current, then ease toward it
+        // (TURN_TAU sets how gently it swings round) so the change reads as a turning
+        // current rather than an abrupt jerk.
+        driftClock += sec;
+        if(driftClock >= nextTurn){
+            driftTarget = rand(0, Math.PI * 2);
+            driftClock = 0;
+            nextTurn = 10 + rand(-2, 2);
+        }
+        let da = driftTarget - driftAngle;
+        da = Math.atan2(Math.sin(da), Math.cos(da));   // shortest way round the circle
+        driftAngle += da * (1 - Math.exp(-sec / TURN_TAU));
+        const driftX = Math.cos(driftAngle) * DRIFT_SPEED;
+        const driftY = Math.sin(driftAngle) * DRIFT_SPEED;
+
         const aspect = window.innerWidth / window.innerHeight;
         for(const p of pts){
             // Steer with a vector read from two independent noise lanes (one per axis).
             // Each lane is symmetric around 0, so the wander itself has no directional
             // bias; the field evolves smoothly, so paths curve organically.
-            // (Deriving a single angle from one lane would bias headings toward +x,
-            //  because Perlin values cluster near 0 -> angle near 0 -> rightward drift.)
             const fx = noise(p.seed, noiseT);
             const fy = noise(p.seed + 1000, noiseT);
             p.vx += fx * ACCEL * dt;
@@ -65,9 +85,9 @@ function registerVoronoi(canvas, section) {
             p.vx *= DAMP;
             p.vy *= DAMP;
 
-            // Damped mean-zero wander + a steady drift current.
-            p.x += (p.vx + DRIFT_X) * dt;
-            p.y += (p.vy + DRIFT_Y) * dt;
+            // Damped mean-zero wander + the steady (slowly turning) drift current.
+            p.x += (p.vx + driftX) * dt;
+            p.y += (p.vy + driftY) * dt;
 
             // Wrap around the edges (toroidal). The render pass tiles the points 3x3
             // and clips, so cells stay seamless across the seam with no popping.
