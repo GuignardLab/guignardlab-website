@@ -44,7 +44,7 @@ We build open-source tools for 3D image registration, spatial transcriptomics an
 
 {%
   include button.html
-  link="projects"
+  link="software"
   text="Browse our software"
   icon="fa-solid fa-arrow-right"
   flip=true
@@ -56,7 +56,7 @@ We build open-source tools for 3D image registration, spatial transcriptomics an
 {%
   include feature.html
   image="images/photo.jpg"
-  link="projects"
+  link="software"
   title="Our Software"
   flip=true
   style="bare"
