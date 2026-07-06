@@ -42,9 +42,11 @@ function registerVoronoi(canvas, section) {
     }));
 
     // Tunables for the wandering motion.
-    const ACCEL = 0.04;      // steering strength (each noise lane is mean 0, |force| ~0.5)
-    const DAMP = 0.95;       // velocity damping (lower = calmer)
+    const ACCEL = 0.04;       // steering strength (each noise lane is mean 0, |force| ~0.5)
+    const DAMP = 0.95;        // velocity damping (lower = calmer)
     const NOISE_SPEED = 0.15; // how fast the steering force evolves over time
+    const DRIFT_X = 0.010;    // steady current on top of the wander (normalized units/dt)
+    const DRIFT_Y = 0.003;    // a gentle diagonal reads more organic than pure horizontal
 
     let noiseT = 0;
     function step(dt){
@@ -52,10 +54,10 @@ function registerVoronoi(canvas, section) {
         const aspect = window.innerWidth / window.innerHeight;
         for(const p of pts){
             // Steer with a vector read from two independent noise lanes (one per axis).
-            // Each lane is symmetric around 0, so there's no directional bias; the field
-            // evolves smoothly, so paths curve organically instead of jittering.
-            // (Deriving a single angle from one lane biases headings toward +x, because
-            //  Perlin values cluster near 0 -> angle near 0 -> a steady rightward drift.)
+            // Each lane is symmetric around 0, so the wander itself has no directional
+            // bias; the field evolves smoothly, so paths curve organically.
+            // (Deriving a single angle from one lane would bias headings toward +x,
+            //  because Perlin values cluster near 0 -> angle near 0 -> rightward drift.)
             const fx = noise(p.seed, noiseT);
             const fy = noise(p.seed + 1000, noiseT);
             p.vx += fx * ACCEL * dt;
@@ -63,19 +65,25 @@ function registerVoronoi(canvas, section) {
             p.vx *= DAMP;
             p.vy *= DAMP;
 
-            p.x += p.vx * dt;
-            p.y += p.vy * dt;
+            // Damped mean-zero wander + a steady drift current.
+            p.x += (p.vx + DRIFT_X) * dt;
+            p.y += (p.vy + DRIFT_Y) * dt;
 
-            // Reflect at the edges (set velocity inward so it can't re-trigger).
-            if(p.x < 0){ p.x = 0; p.vx = Math.abs(p.vx); }
-            if(p.x > aspect){ p.x = aspect; p.vx = -Math.abs(p.vx); }
-            if(p.y < 0){ p.y = 0; p.vy = Math.abs(p.vy); }
-            if(p.y > 1){ p.y = 1; p.vy = -Math.abs(p.vy); }
+            // Wrap around the edges (toroidal). The render pass tiles the points 3x3
+            // and clips, so cells stay seamless across the seam with no popping.
+            p.x = (p.x % aspect + aspect) % aspect;
+            p.y = (p.y % 1 + 1) % 1;
         }
     }
 
     const edgeCol = 'rgba(11, 13, 16, 0.5)';   // dark cell seams (was #0b0d10 mixed at 0.5)
-    const coords = new Float64Array((COUNT + 1) * 2);
+
+    // For seamless wrapping the drifting points are tiled in a 3x3 block (the real set
+    // plus 8 shifted ghost copies) and the Voronoi is clipped to the canvas; the mouse
+    // is appended once as a single, non-wrapping point.
+    const NTILE = COUNT * 9;
+    const mouseIdx = NTILE;
+    const coords = new Float64Array((NTILE + 1) * 2);
 
     let t0 = performance.now();
     let running = true;
@@ -95,12 +103,19 @@ function registerVoronoi(canvas, section) {
         const w = canvas.width, h = canvas.height;
         const aspect = w / h;
 
-        // Map seeds (+ mouse as the last point) to device pixels.
-        for(let i=0;i<COUNT;i++){
-            coords[i*2]   = pts[i].x / aspect * w;
-            coords[i*2+1] = (1 - pts[i].y) * h;
+        // Tile the drifting points 3x3 (shift each copy by +/- the canvas width/height)
+        // so the Voronoi wraps seamlessly; every ghost keeps its source point's shading.
+        let idx = 0;
+        for(let sy=-1; sy<=1; sy++){
+            for(let sx=-1; sx<=1; sx++){
+                const ox = sx * w, oy = sy * h;
+                for(let i=0;i<COUNT;i++){
+                    coords[idx*2]   = pts[i].x / aspect * w + ox;
+                    coords[idx*2+1] = (1 - pts[i].y) * h + oy;
+                    idx++;
+                }
+            }
         }
-        const mouseIdx = COUNT;
         coords[mouseIdx*2]   = mouseX;
         coords[mouseIdx*2+1] = mouseY;
 
@@ -113,10 +128,12 @@ function registerVoronoi(canvas, section) {
         // white at the seed, dimming to 0.35 far away (matches the old shader).
         const shadeRadius = h * 1.18;
         const mouseColor = canvas.getAttribute("currentMouseColor");
+        ctx.lineWidth = 1.5 * dpr;
+        ctx.strokeStyle = edgeCol;
 
         for(let i=0;i<=mouseIdx;i++){
             const cell = voronoi.cellPolygon(i);
-            if(!cell) continue;
+            if(!cell) continue;   // ghost cells fully outside the canvas clip to null
 
             const cx = coords[i*2], cy = coords[i*2+1];
             const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, shadeRadius);
@@ -136,9 +153,6 @@ function registerVoronoi(canvas, section) {
             ctx.closePath();
             ctx.fillStyle = g;
             ctx.fill();
-
-            ctx.lineWidth = 1.5 * dpr;
-            ctx.strokeStyle = edgeCol;
             ctx.stroke();
         }
 
