@@ -42,20 +42,24 @@ function registerVoronoi(canvas, section) {
     }));
 
     // Tunables for the wandering motion.
-    const ACCEL = 0.02;      // steering strength toward the noise-chosen heading
+    const ACCEL = 0.04;      // steering strength (each noise lane is mean 0, |force| ~0.5)
     const DAMP = 0.95;       // velocity damping (lower = calmer)
-    const NOISE_SPEED = 0.15; // how fast headings evolve over time
+    const NOISE_SPEED = 0.15; // how fast the steering force evolves over time
 
     let noiseT = 0;
     function step(dt){
         noiseT += dt * NOISE_SPEED;
         const aspect = window.innerWidth / window.innerHeight;
         for(const p of pts){
-            // Perlin noise gives a heading that rotates smoothly over time, so paths
-            // curve organically instead of drifting straight with uncorrelated jitter.
-            const angle = noise(p.seed, noiseT) * Math.PI * 2;
-            p.vx += Math.cos(angle) * ACCEL * dt;
-            p.vy += Math.sin(angle) * ACCEL * dt;
+            // Steer with a vector read from two independent noise lanes (one per axis).
+            // Each lane is symmetric around 0, so there's no directional bias; the field
+            // evolves smoothly, so paths curve organically instead of jittering.
+            // (Deriving a single angle from one lane biases headings toward +x, because
+            //  Perlin values cluster near 0 -> angle near 0 -> a steady rightward drift.)
+            const fx = noise(p.seed, noiseT);
+            const fy = noise(p.seed + 1000, noiseT);
+            p.vx += fx * ACCEL * dt;
+            p.vy += fy * ACCEL * dt;
             p.vx *= DAMP;
             p.vy *= DAMP;
 
