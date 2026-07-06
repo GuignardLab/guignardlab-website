@@ -27,36 +27,83 @@ function registerVoronoi(canvas, section) {
     const COUNT = 49;
     function rand(a,b){ return a + Math.random()*(b-a); }
 
-    const pts = [];
-    for(let i=0;i<COUNT;i++){
-        pts.push({
-            x: rand(0,1.6),
-            y: rand(0,1),
-            vx: rand(-1,1)*0.025,
-            vy: rand(-1,1)*0.025,
-        });
-    }
+    const noise = createNoise2D();
+
+    // Blue-noise initial placement (Mitchell's best-candidate): even, natural
+    // spacing without the clumps and gaps of uniform random. x spans [0, aspect]
+    // so the points fill the (wider-than-tall) viewport.
+    const aspect0 = window.innerWidth / window.innerHeight;
+    const pts = blueNoise(COUNT, aspect0, 1).map((s) => ({
+        x: s.x,
+        y: s.y,
+        vx: rand(-1,1)*0.025,
+        vy: rand(-1,1)*0.025,
+        seed: rand(0,1000),   // each point samples its own "lane" of the noise field
+    }));
+
+    // Tunables for the wandering motion.
+    const ACCEL = 0.04;       // steering strength (each noise lane is mean 0, |force| ~0.5)
+    const DAMP = 0.95;        // velocity damping (lower = calmer)
+    const NOISE_SPEED = 0.15; // how fast the steering force evolves over time
+    const DRIFT_SPEED = 0.02; // strength of the steady current (normalized units/dt)
+    const TURN_TAU = 0.6;     // seconds for the current to swing to a new heading (smoothness)
+
+    let noiseT = 0;
+    let driftAngle = rand(0, Math.PI * 2);   // heading of the current
+    let driftTarget = driftAngle;            // heading it's easing toward
+    let driftClock = 0;                      // seconds since the last heading change
+    let nextTurn = 10 + rand(-2, 2);         // re-randomize the heading every 10 +/- 2 s
 
     function step(dt){
+        noiseT += dt * NOISE_SPEED;
+        const sec = dt * 0.3;   // real seconds this frame (dt = elapsedMs / 300)
+
+        // Every 10 +/- 2 s pick a new random heading for the current, then ease toward it
+        // (TURN_TAU sets how gently it swings round) so the change reads as a turning
+        // current rather than an abrupt jerk.
+        driftClock += sec;
+        if(driftClock >= nextTurn){
+            driftTarget = rand(0, Math.PI * 2);
+            driftClock = 0;
+            nextTurn = 10 + rand(-2, 2);
+        }
+        let da = driftTarget - driftAngle;
+        da = Math.atan2(Math.sin(da), Math.cos(da));   // shortest way round the circle
+        driftAngle += da * (1 - Math.exp(-sec / TURN_TAU));
+        const driftX = Math.cos(driftAngle) * DRIFT_SPEED;
+        const driftY = Math.sin(driftAngle) * DRIFT_SPEED;
+
         const aspect = window.innerWidth / window.innerHeight;
         for(const p of pts){
-            p.x += p.vx * dt;
-            p.y += p.vy * dt;
+            // Steer with a vector read from two independent noise lanes (one per axis).
+            // Each lane is symmetric around 0, so the wander itself has no directional
+            // bias; the field evolves smoothly, so paths curve organically.
+            const fx = noise(p.seed, noiseT);
+            const fy = noise(p.seed + 1000, noiseT);
+            p.vx += fx * ACCEL * dt;
+            p.vy += fy * ACCEL * dt;
+            p.vx *= DAMP;
+            p.vy *= DAMP;
 
-            if(p.x < 0){ p.x = 0; p.vx *= -1; }
-            if(p.x > aspect){ p.x = aspect; p.vx *= -1; }
-            if(p.y < 0){ p.y = 0; p.vy *= -1; }
-            if(p.y > 1){ p.y = 1; p.vy *= -1; }
+            // Damped mean-zero wander + the steady (slowly turning) drift current.
+            p.x += (p.vx + driftX) * dt;
+            p.y += (p.vy + driftY) * dt;
 
-            p.vx += rand(-1,1)*0.0006;
-            p.vy += rand(-1,1)*0.0006;
-            p.vx *= 0.996;
-            p.vy *= 0.996;
+            // Wrap around the edges (toroidal). The render pass tiles the points 3x3
+            // and clips, so cells stay seamless across the seam with no popping.
+            p.x = (p.x % aspect + aspect) % aspect;
+            p.y = (p.y % 1 + 1) % 1;
         }
     }
 
     const edgeCol = 'rgba(11, 13, 16, 0.5)';   // dark cell seams (was #0b0d10 mixed at 0.5)
-    const coords = new Float64Array((COUNT + 1) * 2);
+
+    // For seamless wrapping the drifting points are tiled in a 3x3 block (the real set
+    // plus 8 shifted ghost copies) and the Voronoi is clipped to the canvas; the mouse
+    // is appended once as a single, non-wrapping point.
+    const NTILE = COUNT * 9;
+    const mouseIdx = NTILE;
+    const coords = new Float64Array((NTILE + 1) * 2);
 
     let t0 = performance.now();
     let running = true;
@@ -76,12 +123,19 @@ function registerVoronoi(canvas, section) {
         const w = canvas.width, h = canvas.height;
         const aspect = w / h;
 
-        // Map seeds (+ mouse as the last point) to device pixels.
-        for(let i=0;i<COUNT;i++){
-            coords[i*2]   = pts[i].x / aspect * w;
-            coords[i*2+1] = (1 - pts[i].y) * h;
+        // Tile the drifting points 3x3 (shift each copy by +/- the canvas width/height)
+        // so the Voronoi wraps seamlessly; every ghost keeps its source point's shading.
+        let idx = 0;
+        for(let sy=-1; sy<=1; sy++){
+            for(let sx=-1; sx<=1; sx++){
+                const ox = sx * w, oy = sy * h;
+                for(let i=0;i<COUNT;i++){
+                    coords[idx*2]   = pts[i].x / aspect * w + ox;
+                    coords[idx*2+1] = (1 - pts[i].y) * h + oy;
+                    idx++;
+                }
+            }
         }
-        const mouseIdx = COUNT;
         coords[mouseIdx*2]   = mouseX;
         coords[mouseIdx*2+1] = mouseY;
 
@@ -94,10 +148,12 @@ function registerVoronoi(canvas, section) {
         // white at the seed, dimming to 0.35 far away (matches the old shader).
         const shadeRadius = h * 1.18;
         const mouseColor = canvas.getAttribute("currentMouseColor");
+        ctx.lineWidth = 1.5 * dpr;
+        ctx.strokeStyle = edgeCol;
 
         for(let i=0;i<=mouseIdx;i++){
             const cell = voronoi.cellPolygon(i);
-            if(!cell) continue;
+            if(!cell) continue;   // ghost cells fully outside the canvas clip to null
 
             const cx = coords[i*2], cy = coords[i*2+1];
             const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, shadeRadius);
@@ -117,9 +173,6 @@ function registerVoronoi(canvas, section) {
             ctx.closePath();
             ctx.fillStyle = g;
             ctx.fill();
-
-            ctx.lineWidth = 1.5 * dpr;
-            ctx.strokeStyle = edgeCol;
             ctx.stroke();
         }
 
@@ -154,6 +207,54 @@ function registerVoronoi(canvas, section) {
     document.addEventListener('visibilitychange', sync);
 
     requestAnimationFrame(render);
+}
+
+// Blue-noise sampling via Mitchell's best-candidate algorithm: each new point is
+// the farthest-from-its-neighbours of `k` random candidates, yielding even spacing.
+// Returns exactly `count` points in the box [0,w] x [0,h].
+function blueNoise(count, w, h, k = 12){
+    const pts = [{ x: Math.random()*w, y: Math.random()*h }];
+    for(let i=1;i<count;i++){
+        let best = null, bestDist = -1;
+        for(let c=0;c<k;c++){
+            const cand = { x: Math.random()*w, y: Math.random()*h };
+            let nearest = Infinity;
+            for(const p of pts){
+                const dx = cand.x - p.x, dy = cand.y - p.y;
+                nearest = Math.min(nearest, dx*dx + dy*dy);
+            }
+            if(nearest > bestDist){ bestDist = nearest; best = cand; }
+        }
+        pts.push(best);
+    }
+    return pts;
+}
+
+// Classic 2D Perlin noise (Ken Perlin's improved noise), dependency-free.
+// Returns a sampler f(x, y) -> roughly [-1, 1], smooth and continuous.
+function createNoise2D(){
+    const perm = new Uint8Array(512);
+    const src = Uint8Array.from({length:256}, (_, i) => i);
+    for(let i=255;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        const tmp = src[i]; src[i] = src[j]; src[j] = tmp;
+    }
+    for(let i=0;i<512;i++) perm[i] = src[i & 255];
+
+    const fade = (t) => t*t*t*(t*(t*6-15)+10);
+    const lerp = (a,b,t) => a + t*(b-a);
+    const grad = (h,x,y) => ((h & 1) ? -x : x) + ((h & 2) ? -y : y);
+
+    return function(x, y){
+        const xi = Math.floor(x) & 255, yi = Math.floor(y) & 255;
+        const xf = x - Math.floor(x), yf = y - Math.floor(y);
+        const u = fade(xf), v = fade(yf);
+        const aa = perm[perm[xi] + yi],     ba = perm[perm[xi+1] + yi];
+        const ab = perm[perm[xi] + yi+1],   bb = perm[perm[xi+1] + yi+1];
+        const x1 = lerp(grad(aa, xf, yf),   grad(ba, xf-1, yf),   u);
+        const x2 = lerp(grad(ab, xf, yf-1), grad(bb, xf-1, yf-1), u);
+        return lerp(x1, x2, v);
+    };
 }
 
 function loadScript(src){
