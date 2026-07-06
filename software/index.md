@@ -3,24 +3,22 @@ title: Software
 nav:
   order: 2
   tooltip: Software, datasets, and more
+redirect_from:
+  - /projects/
 ---
 
-# {% include icon.html icon="fa-solid fa-wrench" %}Projects
+# {% include icon.html icon="fa-brands fa-python" %}Software
 
-We develop open-source tools for image registration, spatial transcriptomics, organoid analysis, and cell lineage handling. All software is open source available on [GitHub](https://github.com/GuignardLab).
+We develop open-source tools for image registration, spatial transcriptomics, organoid analysis, and cell lineage handling.
 
-<!-- {% include tags.html tags="publication, resource, website" %}
-
-{% include search-info.html %}
-
-{% include section.html %} -->
+All software is open source available on [GitHub](https://github.com/GuignardLab).
 
 ## Featured
 
-{% include list.html component="card" data="projects" filter="group == 'featured'" %}
+{% include list.html component="card" data="software" filter="group == 'featured'" %}
 
 {% include section.html %}
 
 ## More
 
-{% include list.html component="card" data="projects" filter="!group" style="small" %}
+{% include list.html component="card" data="software" filter="!group" style="small" %}
