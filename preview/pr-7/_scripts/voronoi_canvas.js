@@ -1,9 +1,10 @@
 function registerVoronoi(canvas, section) {
     const ctx = canvas.getContext('2d');
 
-    let dpr = 1;
+    // Render at CSS pixels (dpr = 1): the canvas sits at 33% opacity behind the
+    // content, so device-pixel detail is wasted and just multiplies fill/filter cost.
+    const dpr = 1;
     function resize(){
-        dpr = Math.min(window.devicePixelRatio || 1, 2);
         canvas.width = Math.floor(window.innerWidth * dpr);
         canvas.height = Math.floor(window.innerHeight * dpr);
     }
@@ -59,9 +60,14 @@ function registerVoronoi(canvas, section) {
 
     let t0 = performance.now();
     let running = true;
+    const FRAME_MS = 1000 / 30;   // cap to ~30fps; the drift is slow, 60fps is wasted work
+    let lastDraw = 0;
 
     function render(now){
         if(!running) return;
+        requestAnimationFrame(render);
+        if(now - lastDraw < FRAME_MS) return;
+        lastDraw = now;
 
         const dt = Math.min(32, now - t0) / 300;
         t0 = now;
@@ -123,8 +129,6 @@ function registerVoronoi(canvas, section) {
         vig.addColorStop(1, 'rgba(0, 0, 0, 0.15)');
         ctx.fillStyle = vig;
         ctx.fillRect(0, 0, w, h);
-
-        requestAnimationFrame(render);
     }
 
     // Pause the loop while the section is off-screen or the tab is hidden.
@@ -165,7 +169,9 @@ function loadScript(src){
 var canvas = document.createElement('canvas');
 
 canvas.className = "voronoi";
-canvas.style = "display:block; width:-webkit-fill-available; height:-webkit-fill-available; opacity:33%; z-index:-1; position: absolute; left: 0; top: 0; filter: contrast(1.5)";
+// 100vw/100vh is the standard fallback for Firefox, which ignores -webkit-fill-available
+// (without it the canvas falls back to its buffer size and renders ~2x too large).
+canvas.style = "display:block; width:100vw; height:100vh; width:-webkit-fill-available; height:-webkit-fill-available; opacity:33%; z-index:-1; position: absolute; left: 0; top: 0; filter: contrast(1.5)";
 section = document.currentScript.parentElement; // for the current use of it, this will be the highlights section
 section.insertBefore(canvas, section.children[0]);
 
