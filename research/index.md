@@ -9,7 +9,10 @@ nav:
 
 We investigate how embryos reproducibly build complex organisms. Our core question: **how to quantify developmental variability across spatio-temporal scales?** We combine fluorescence microscopy, spatial transcriptomics, and machine learning to analyze morphogenesis at single-cell resolution in model organisms including *Drosophila* and ascidians.
 
-Our two main axes are (1) building **morphological and molecular atlases** of embryogenesis through non-linear co-registration of multiple embryos, and (2) developing **machine-learning algorithms** to detect and quantify scales of reproducibility throughout development.
+Our two main axes are:
+  
+- building **morphological and molecular atlases** of embryogenesis through non-linear co-registration of multiple embryos
+- developing **algorithms** and **formalisms** to detect and quantify scales of reproducibility throughout development.
 
 {% include section.html %}
 
