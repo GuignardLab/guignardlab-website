@@ -1,144 +1,29 @@
 function registerVoronoi(canvas, section) {
-    let mouseX = 0;
-    let mouseY = 0;
-    const gl = canvas.getContext('webgl', {antialias: false}) || canvas.getContext('experimental-webgl', {antialias: false});
-    gl.getExtension('OES_standard_derivatives');
+    const ctx = canvas.getContext('2d');
+
+    // Render at CSS pixels (dpr = 1): the canvas sits at 33% opacity behind the
+    // content, so device-pixel detail is wasted and just multiplies fill/filter cost.
+    const dpr = 1;
     function resize(){
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
         canvas.width = Math.floor(window.innerWidth * dpr);
         canvas.height = Math.floor(window.innerHeight * dpr);
-        gl.viewport(0,0,canvas.width, canvas.height);
     }
     window.addEventListener('resize', resize);
     resize();
 
-    const vertSrc = `
-    attribute vec2 aPos;
-    void main(){
-    gl_Position = vec4(aPos, 0.0, 1.0);
-    }`;
-
-    const MAX_PTS = 49;
-
-    const fragSrc = `
-    #extension GL_OES_standard_derivatives : enable
-    precision highp float;
-    uniform vec2 uRes;
-    uniform int uCount;
-    uniform vec2 uPoints[${MAX_PTS}];
-    uniform vec3 uColors[${MAX_PTS}];
-    uniform vec3 mouseColor;
-    uniform vec2 iMouse;
-
-    float dist2(vec2 a, vec2 b){
-        vec2 d = a-b;
-        return dot(d,d);
-    }
-
-    void main(){
-        vec2 uv = gl_FragCoord.xy / uRes.xy;
-        vec2 p = vec2(uv.x * (uRes.x/uRes.y), uv.y);
-
-        float best = 1e9;
-        float second = 1e9;
-        vec3 bestCol = uColors[0];
-        for(int i=0;i<${MAX_PTS};i++){
-            if(i>=uCount) break;
-            vec2 q = uPoints[i];
-            q.x *= (uRes.x/uRes.y);
-            float d = dist2(p,q);
-            if(d < best){
-                second = best;
-                best = d;
-                bestCol = uColors[i];
-            } else if(d < second){
-                second = d;
-            }
-        }
-        vec2 q = iMouse;
-        q.x *= (uRes.x/uRes.y);
-        float d = dist2(p,q);
-        if(d < best){
-            second = best;
-            best = d;
-            bestCol = mouseColor;
-        } else if(d < second){
-            second = d;
-        }
-
-        vec3 col = bestCol;
-
-        float shade = clamp(1.0 - sqrt(best)*0.55, 0.35, 1.0);
-        col *= shade;
-
-        float edgeDist = sqrt(second) - sqrt(best);
-        float pixelWidth = fwidth(edgeDist);
-        float edgeMask = 1.0 - smoothstep(0.0, pixelWidth*1.6, edgeDist); 
-
-        vec3 edgeCol = vec3(0.043, 0.051, 0.063);
-        col = mix(col, edgeCol, edgeMask*0.5);
-
-        float vig = smoothstep(1.2, 0.2, length(uv-0.5)*1.3);
-        col *= mix(0.85,1.0,vig);
-
-        gl_FragColor = vec4(col, 1.0);
-    }`;
-
+    // Mouse position in device pixels (top-left origin, matching canvas 2D).
+    let mouseX = -1e9;
+    let mouseY = -1e9;
     function setMousePosition(e) {
         const rect = canvas.getBoundingClientRect();
-        mouseX = e.clientX - rect.left;
-        mouseY = rect.height - (e.clientY - rect.top) - 1;  // bottom is 0 in WebGL
-        mouseX = mouseX/rect.width;
-        mouseY = mouseY/rect.height;
+        mouseX = (e.clientX - rect.left) / rect.width * canvas.width;
+        mouseY = (e.clientY - rect.top) / rect.height * canvas.height;
     }
-
     section.addEventListener('mousemove', setMousePosition);
-    function compile(type, src){
-        const sh = gl.createShader(type);
-        gl.shaderSource(sh, src);
-        gl.compileShader(sh);
-        if(!gl.getShaderParameter(sh, gl.COMPILE_STATUS)){
-            console.error(gl.getShaderInfoLog(sh));
-        }
-        return sh;
-    }
 
-    const prog = gl.createProgram();
-    gl.attachShader(prog, compile(gl.VERTEX_SHADER, vertSrc));
-    gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, fragSrc));
-    gl.linkProgram(prog);
-    if(!gl.getProgramParameter(prog, gl.LINK_STATUS)){
-        console.error(gl.getProgramInfoLog(prog));
-    }
-    gl.useProgram(prog);
-
-    const buf = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-        -1,-1,  1,-1,  -1,1,
-        -1,1,   1,-1,   1,1
-    ]), gl.STATIC_DRAW);
-    const aPos = gl.getAttribLocation(prog, 'aPos');
-    gl.enableVertexAttribArray(aPos);
-    gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
-
-    const uRes = gl.getUniformLocation(prog, 'uRes');
-    const uCount = gl.getUniformLocation(prog, 'uCount');
-    const uPoints = gl.getUniformLocation(prog, 'uPoints');
-    const uColors = gl.getUniformLocation(prog, 'uColors');
-    const mouseLocation = gl.getUniformLocation(prog, "iMouse");
-    const mouseColor = gl.getUniformLocation(prog, "mouseColor");
-
-    // Claude's awful taste in colour (keeping it as a comment as a memento of shame)
-    // const palette = ['#1c1f24','#3b2f2c','#7a3b2e','#c2522f','#ff5a36','#ffb24d'];
-
-    const palette = ['#ffffff','#ffffff','#ffffff','#ffffff','#ffffff','#ffffff'];
     canvas.setAttribute("currentMouseColor", '#d899bf');
-    function hexToRgb(hex){
-        const n = parseInt(hex.slice(1),16);
-        return [((n>>16)&255)/255, ((n>>8)&255)/255, (n&255)/255];
-    }
 
+    // Seed points live in a normalized space: x in [0, aspect], y in [0, 1].
     const COUNT = 49;
     function rand(a,b){ return a + Math.random()*(b-a); }
 
@@ -149,13 +34,8 @@ function registerVoronoi(canvas, section) {
             y: rand(0,1),
             vx: rand(-1,1)*0.025,
             vy: rand(-1,1)*0.025,
-            cIdx: i % palette.length
         });
     }
-
-    let t0 = performance.now(); // gets current time!
-    const pointsBuf = new Float32Array(MAX_PTS*2);
-    const colorsBuf = new Float32Array(MAX_PTS*3);
 
     function step(dt){
         const aspect = window.innerWidth / window.innerHeight;
@@ -175,44 +55,130 @@ function registerVoronoi(canvas, section) {
         }
     }
 
+    const edgeCol = 'rgba(11, 13, 16, 0.5)';   // dark cell seams (was #0b0d10 mixed at 0.5)
+    const coords = new Float64Array((COUNT + 1) * 2);
+
+    let t0 = performance.now();
+    let running = true;
+    const FRAME_MS = 1000 / 30;   // cap to ~30fps; the drift is slow, 60fps is wasted work
+    let lastDraw = 0;
+
     function render(now){
-        gl.uniform2f(mouseLocation, mouseX, mouseY); 
+        if(!running) return;
+        requestAnimationFrame(render);
+        if(now - lastDraw < FRAME_MS) return;
+        lastDraw = now;
 
         const dt = Math.min(32, now - t0) / 300;
         t0 = now;
         step(dt);
 
-        gl.uniform2f(uRes, canvas.width, canvas.height);
-        gl.uniform1i(uCount, pts.length);
+        const w = canvas.width, h = canvas.height;
+        const aspect = w / h;
 
-        for(let i=0;i<pts.length;i++){
-            pointsBuf[i*2] = pts[i].x;
-            pointsBuf[i*2+1] = pts[i].y;
-            const rgb = hexToRgb(palette[pts[i].cIdx]);
-            colorsBuf[i*3] = rgb[0];
-            colorsBuf[i*3+1] = rgb[1];
-            colorsBuf[i*3+2] = rgb[2];
+        // Map seeds (+ mouse as the last point) to device pixels.
+        for(let i=0;i<COUNT;i++){
+            coords[i*2]   = pts[i].x / aspect * w;
+            coords[i*2+1] = (1 - pts[i].y) * h;
         }
-        gl.uniform2fv(uPoints, pointsBuf);
-        gl.uniform3fv(uColors, colorsBuf);
-        let mr, mg, mb;
-        [mr, mg, mb] = hexToRgb(canvas.getAttribute("currentMouseColor"));
-        gl.uniform3f(mouseColor, mr, mg, mb);
+        const mouseIdx = COUNT;
+        coords[mouseIdx*2]   = mouseX;
+        coords[mouseIdx*2+1] = mouseY;
 
-        gl.drawArrays(gl.TRIANGLES, 0, 6);
-        requestAnimationFrame(render);
+        const delaunay = new d3.Delaunay(coords);
+        const voronoi = delaunay.voronoi([0, 0, w, h]);
+
+        ctx.clearRect(0, 0, w, h);
+
+        // Radial gradient per cell reproduces the distance-from-seed shading:
+        // white at the seed, dimming to 0.35 far away (matches the old shader).
+        const shadeRadius = h * 1.18;
+        const mouseColor = canvas.getAttribute("currentMouseColor");
+
+        for(let i=0;i<=mouseIdx;i++){
+            const cell = voronoi.cellPolygon(i);
+            if(!cell) continue;
+
+            const cx = coords[i*2], cy = coords[i*2+1];
+            const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, shadeRadius);
+            if(i === mouseIdx){
+                g.addColorStop(0, mouseColor);
+                g.addColorStop(1, mouseColor);
+            } else {
+                g.addColorStop(0, 'rgb(255, 255, 255)');
+                g.addColorStop(1, 'rgb(89, 89, 89)');  // 0.35 * 255
+            }
+
+            ctx.beginPath();
+            ctx.moveTo(cell[0][0], cell[0][1]);
+            for(let k=1;k<cell.length;k++){
+                ctx.lineTo(cell[k][0], cell[k][1]);
+            }
+            ctx.closePath();
+            ctx.fillStyle = g;
+            ctx.fill();
+
+            ctx.lineWidth = 1.5 * dpr;
+            ctx.strokeStyle = edgeCol;
+            ctx.stroke();
+        }
+
+        // Subtle vignette (edges darkened ~15%), matching the old shader.
+        const vig = ctx.createRadialGradient(w/2, h/2, 0, w/2, h/2, Math.max(w,h)*0.75);
+        vig.addColorStop(0, 'rgba(0, 0, 0, 0)');
+        vig.addColorStop(1, 'rgba(0, 0, 0, 0.15)');
+        ctx.fillStyle = vig;
+        ctx.fillRect(0, 0, w, h);
     }
-    requestAnimationFrame(render);
 
+    // Pause the loop while the section is off-screen or the tab is hidden.
+    let onScreen = true;
+    function sync(){
+        const shouldRun = onScreen && !document.hidden;
+        if(shouldRun && !running){
+            running = true;
+            t0 = performance.now();
+            requestAnimationFrame(render);
+        } else if(!shouldRun){
+            running = false;
+        }
+    }
+
+    if('IntersectionObserver' in window){
+        const io = new IntersectionObserver((entries) => {
+            onScreen = entries[0].isIntersecting;
+            sync();
+        });
+        io.observe(section);
+    }
+    document.addEventListener('visibilitychange', sync);
+
+    requestAnimationFrame(render);
+}
+
+function loadScript(src){
+    return new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = src;
+        s.onload = resolve;
+        s.onerror = reject;
+        document.head.appendChild(s);
+    });
 }
 
 var canvas = document.createElement('canvas');
 
 canvas.className = "voronoi";
-canvas.style = "display:block; width:-webkit-fill-available; height:-webkit-fill-available; opacity:33%; z-index:-1; position: absolute; left: 0; top: 0; filter: contrast(1.5)";
+// 100vw/100vh is the standard fallback for Firefox, which ignores -webkit-fill-available
+// (without it the canvas falls back to its buffer size and renders ~2x too large).
+canvas.style = "display:block; width:100vw; height:100vh; width:-webkit-fill-available; height:-webkit-fill-available; opacity:33%; z-index:-1; position: absolute; left: 0; top: 0; filter: contrast(1.5)";
 section = document.currentScript.parentElement; // for the current use of it, this will be the highlights section
 section.insertBefore(canvas, section.children[0]);
-registerVoronoi(canvas, section);
+
+// d3-delaunay@6 UMD bundles delaunator and exposes the `d3` global (d3.Delaunay).
+loadScript("https://unpkg.com/d3-delaunay@6")
+    .then(() => registerVoronoi(canvas, section))
+    .catch(() => console.error("voronoi: failed to load d3-delaunay"));
 
 // <a> elements aren't built yet at this point so we delay adding the EventListeners until the window is loaded
 window.addEventListener('load', () => {
