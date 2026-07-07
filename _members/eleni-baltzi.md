@@ -1,6 +1,6 @@
 ---
 name: Eleni Baltzi
-image: images/Eleni-Baltzi.jpg
+image: images/team/Eleni-Baltzi.jpg
 role: undergrad
 description: M2 Intern
 ---

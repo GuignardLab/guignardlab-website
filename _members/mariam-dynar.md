@@ -1,6 +1,6 @@
 ---
 name: Mariam Dynar
-image: images/mariam-dynar.jpg
+image: images/team/mariam-dynar.jpg
 role: postdoc
 ---
 

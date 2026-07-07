@@ -1,6 +1,6 @@
 ---
 name: Giannis Liaskas
-image: images/Giannis-Liaskas.jpg
+image: images/team/Giannis-Liaskas.jpg
 role: phd
 ---
 

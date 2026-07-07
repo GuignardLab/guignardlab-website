@@ -1,0 +1,23 @@
+---
+---
+
+.lightbox {
+  max-width: 95vw;
+  max-height: 95vh;
+  padding: 0;
+  border: none;
+  background: none;
+  outline: none;
+}
+
+.lightbox img {
+  display: block;
+  max-width: 95vw;
+  max-height: 95vh;
+  border-radius: var(--rounded);
+  cursor: zoom-out;
+}
+
+.lightbox::backdrop {
+  background: rgba(0, 0, 0, 0.8);
+}
