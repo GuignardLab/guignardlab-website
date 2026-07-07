@@ -15,7 +15,7 @@ A round of lab pictures.
 %}
 {%
   include figure.html
-  image="images/lab-pictures/images/lab-pictures/2026-lab-picture-1.jpeg"
+  image="images/lab-pictures/2026-lab-picture-2.jpeg"
   caption="Lab picture 2"
 %}
 {% endcapture %}
