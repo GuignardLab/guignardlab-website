@@ -1,6 +1,6 @@
 ---
 name: Léo Guignard
-image: images/leo-guignard.jpg
+image: images/team/leo-guignard.jpg
 role: principal-investigator
 affiliation: AMU & CNRS, IBDM & CENTURI, Marseille
 aliases:
