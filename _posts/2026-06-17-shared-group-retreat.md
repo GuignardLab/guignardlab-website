@@ -11,7 +11,7 @@ We went on a 3 day shared group retreat with the groups of Julia Schaeffer and C
 {%
   include figure.html
   image="images/lab-pictures/2026-retreat-lab-1.jpg"
-  caption="Our group (trying to) give a touching homage to Marseille's greatest"
+  caption="Our group's attempt at a touching tribute to Marseille's greatest"
 %}
 {%
   include figure.html
