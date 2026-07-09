@@ -1,4 +1,6 @@
 ---
+title: Guignard Lab
+description: The Guignard Lab develops computational methods to quantify morphogenesis at single-cell resolution, at the intersection of computer vision, machine learning, and developmental biology.
 ---
 
 # Guignard Lab

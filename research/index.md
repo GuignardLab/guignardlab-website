@@ -1,5 +1,6 @@
 ---
 title: Research
+description: Research on quantifying developmental variability across spatio-temporal scales, combining fluorescence microscopy, spatial transcriptomics, and machine learning to study morphogenesis in Drosophila and ascidians.
 nav:
   order: 1
   tooltip: Published works

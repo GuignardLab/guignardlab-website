@@ -1,5 +1,6 @@
 ---
 title: Contact
+description: Contact the Guignard Lab in Marseille. We recruit motivated undergraduates, graduate students, and postdocs interested in computer science and developmental biology.
 nav:
   order: 5
   tooltip: Email, address, and location
