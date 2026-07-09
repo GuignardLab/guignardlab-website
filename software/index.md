@@ -1,5 +1,6 @@
 ---
 title: Software
+description: Open-source software from the Guignard Lab for image registration, spatial transcriptomics, organoid analysis, and cell-lineage handling — all available on GitHub.
 nav:
   order: 2
   tooltip: Software, datasets, and more

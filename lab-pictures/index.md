@@ -1,5 +1,6 @@
 ---
 title: Lab pictures
+description: Photos from life in the Guignard Lab — retreats, conferences, celebrations, and everyday moments in Marseille.
 redirect_from:
   - /blog/
 nav:

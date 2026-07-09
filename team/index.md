@@ -1,5 +1,6 @@
 ---
 title: Team
+description: Meet the Guignard Lab team of computer scientists, physicists, biologists, and mathematicians at IBDM and the Turing Centre for Living Systems, Aix-Marseille Université & CNRS, Marseille.
 nav:
   order: 3
   tooltip: About our team
