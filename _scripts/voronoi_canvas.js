@@ -267,24 +267,31 @@ function loadScript(src){
     });
 }
 
-var canvas = document.createElement('canvas');
+// Skip the whole effect on touch-only devices (phones/tablets): the animation is
+// costly on mobile GPUs/batteries and its mouse interaction is meaningless without
+// a pointer. Gating here also avoids downloading the d3-delaunay bundle at all.
+const isTouchOnly = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
 
-canvas.className = "voronoi";
-// 100vw/100vh is the standard fallback for Firefox, which ignores -webkit-fill-available
-// (without it the canvas falls back to its buffer size and renders ~2x too large).
-canvas.style = "display:block; width:100vw; height:100vh; width:-webkit-fill-available; height:-webkit-fill-available; opacity:33%; z-index:-1; position: absolute; left: 0; top: 0; filter: contrast(1.5)";
-section = document.currentScript.parentElement; // for the current use of it, this will be the highlights section
-section.insertBefore(canvas, section.children[0]);
+if (!isTouchOnly) {
+    var canvas = document.createElement('canvas');
 
-// d3-delaunay@6 UMD bundles delaunator and exposes the `d3` global (d3.Delaunay).
-loadScript("https://unpkg.com/d3-delaunay@6")
-    .then(() => registerVoronoi(canvas, section))
-    .catch(() => console.error("voronoi: failed to load d3-delaunay"));
+    canvas.className = "voronoi";
+    // 100vw/100vh is the standard fallback for Firefox, which ignores -webkit-fill-available
+    // (without it the canvas falls back to its buffer size and renders ~2x too large).
+    canvas.style = "display:block; width:100vw; height:100vh; width:-webkit-fill-available; height:-webkit-fill-available; opacity:33%; z-index:-1; position: absolute; left: 0; top: 0; filter: contrast(1.5)";
+    section = document.currentScript.parentElement; // for the current use of it, this will be the highlights section
+    section.insertBefore(canvas, section.children[0]);
 
-// <a> elements aren't built yet at this point so we delay adding the EventListeners until the window is loaded
-window.addEventListener('load', () => {
-    for (element of document.getElementsByTagName("a")) {
-        element.addEventListener("mouseenter", (e) => {canvas.setAttribute("currentMouseColor", '#5a89e0')});
-        element.addEventListener("mouseleave", (e) => {canvas.setAttribute("currentMouseColor", '#d899bf')});
-    }
-});
+    // d3-delaunay@6 UMD bundles delaunator and exposes the `d3` global (d3.Delaunay).
+    loadScript("https://unpkg.com/d3-delaunay@6")
+        .then(() => registerVoronoi(canvas, section))
+        .catch(() => console.error("voronoi: failed to load d3-delaunay"));
+
+    // <a> elements aren't built yet at this point so we delay adding the EventListeners until the window is loaded
+    window.addEventListener('load', () => {
+        for (element of document.getElementsByTagName("a")) {
+            element.addEventListener("mouseenter", (e) => {canvas.setAttribute("currentMouseColor", '#5a89e0')});
+            element.addEventListener("mouseleave", (e) => {canvas.setAttribute("currentMouseColor", '#d899bf')});
+        }
+    });
+}
