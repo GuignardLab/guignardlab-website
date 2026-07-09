@@ -12,6 +12,7 @@
     aria-label="{{ include.title | default: "feature link" | regex_strip }}"
   >
     <img
+      id="{{ include.id }}"
       src="{{ include.image | relative_url | uri_escape }}"
       loading="lazy"
       alt="{{ include.title | default: "feature image" | regex_strip }}"

@@ -83,7 +83,25 @@ We are a diverse team of computer scientists, physicists, biologists, and mathem
 {%
   include feature.html
   image="images/photo.jpg"
+  id="ourteam"
   link="team"
   title="Our Team"
   text=text
 %}
+
+{% assign pictures = "" | split: "," %}
+{% assign postdata = site.posts | sort: "date" | reverse %}
+{% for post in postdata %}
+  {% if post.image %}
+    {% assign pictures = pictures | push: post.image %}
+  {% endif %}
+{% endfor %}
+<script>
+  const pictures = {{ pictures | jsonify }};
+
+  const ourteam = document.getElementById("ourteam");
+  if (pictures.length > 0 && ourteam) {
+    const randomImage = pictures[Math.floor(Math.random()**2 * pictures.length)];
+    ourteam.src = randomImage;
+  }
+</script>
