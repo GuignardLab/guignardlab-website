@@ -103,5 +103,8 @@ We are a diverse team of computer scientists, physicists, biologists, and mathem
   if (pictures.length > 0 && ourteam) {
     const randomImage = pictures[Math.floor(Math.random()**2 * pictures.length)];
     ourteam.src = randomImage;
+    ourteam.style.transform = "scale(1.50)";
+    ourteam.style.transformOrigin =
+      `${Math.floor(Math.random() * 101)}% ${Math.floor(Math.random() * 101)}%`;
   }
 </script>
