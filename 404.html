@@ -304,25 +304,45 @@
 <script src="https://unpkg.com/mark.js@8" defer></script>
 
 <!-- include all js in scripts folder -->
+<!-- voronoi_canvas.js is loaded inline in the page (index.md) where it uses
+     document.currentScript.parentElement to attach to the Highlights section, so
+     it must not also be auto-loaded here: a second execution would redeclare its
+     top-level const bindings and throw, aborting the inline copy. -->
 
 
+  
   <script src="/_scripts/anchors.js"></script>
+  
 
+  
   <script src="/_scripts/dark-mode.js"></script>
+  
 
+  
   <script src="/_scripts/fetch-tags.js"></script>
+  
 
+  
   <script src="/_scripts/lightbox.js"></script>
+  
 
+  
   <script src="/_scripts/search.js"></script>
+  
 
+  
   <script src="/_scripts/site-search.js"></script>
+  
 
+  
   <script src="/_scripts/table-wrap.js"></script>
+  
 
+  
   <script src="/_scripts/tooltip.js"></script>
+  
 
-  <script src="/_scripts/voronoi_canvas.js"></script>
+  
 
 
 </head>
