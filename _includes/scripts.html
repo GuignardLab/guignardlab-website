@@ -4,7 +4,13 @@
 <script src="https://unpkg.com/mark.js@8" defer></script>
 
 <!-- include all js in scripts folder -->
+<!-- voronoi_canvas.js is loaded inline in the page (index.md) where it uses
+     document.currentScript.parentElement to attach to the Highlights section, so
+     it must not also be auto-loaded here: a second execution would redeclare its
+     top-level const bindings and throw, aborting the inline copy. -->
 {% assign scripts = site.static_files | where_exp: "file", "file.path contains '/_scripts'" %}
 {% for script in scripts %}
+  {% unless script.path contains 'voronoi_canvas' %}
   <script src="{{ script.path | relative_url }}"></script>
+  {% endunless %}
 {% endfor %}
