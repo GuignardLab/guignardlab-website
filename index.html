@@ -559,7 +559,7 @@
 
 <div class="feature">
   <a href="/team" class="feature-image" aria-label="Our Team">
-    <img src="/images/photo.jpg" loading="lazy" alt="Our Team" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+    <img id="ourteam" src="/images/photo.jpg" loading="lazy" alt="Our Team" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
   </a>
   <div class="feature-text">
     
@@ -580,6 +580,19 @@
 
   </div>
 </div>
+
+<script>
+  const pictures = ["images/lab-pictures/2026-IBDM-summer-anniversary-music-1.jpeg","images/lab-pictures/2026-retreat-lab-6.jpeg","images/lab-pictures/2026-lab-and-friends-drinks-1.jpeg","images/lab-pictures/2026-lab-picture-1.jpeg","images/lab-pictures/2025-Alice-PhD-Party-1.jpeg","images/lab-pictures/2025-lab-lunch-1.jpeg","images/lab-pictures/2025-other-lab-lunch-1.jpeg"];
+
+  const ourteam = document.getElementById("ourteam");
+  if (pictures.length > 0 && ourteam) {
+    const randomImage = pictures[Math.floor(Math.random()**2 * pictures.length)];
+    ourteam.src = randomImage;
+    ourteam.style.transform = "scale(1.50)";
+    ourteam.style.transformOrigin =
+      `${Math.floor(Math.random() * 101)}% ${Math.floor(Math.random() * 101)}%`;
+  }
+</script>
   </section>
 
 
