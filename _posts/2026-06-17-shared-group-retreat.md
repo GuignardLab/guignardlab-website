@@ -1,5 +1,5 @@
 ---
-title: Shared group retreat with the groups of julia Schaeffer and Christopher Thomas
+title: Shared group retreat with the groups of Julia Schaeffer and Christopher Thomas
 image: images/lab-pictures/2026-retreat-lab-6.jpeg
 author: leo-guignard
 tags: lab retreat, social
@@ -32,6 +32,21 @@ We went on a 3 day shared group retreat with the groups of Julia Schaeffer and C
   include figure.html
   image="images/lab-pictures/2026-retreat-lab-5.jpeg"
   caption="Work session 2"
+%}
+{%
+  include figure.html
+  image="images/lab-pictures/2026-retreat-lab-7.jpeg"
+  caption="Canoeing 1"
+%}
+{%
+  include figure.html
+  image="images/lab-pictures/2026-retreat-lab-8.jpeg"
+  caption="Canoeing 2"
+%}
+{%
+  include figure.html
+  image="images/lab-pictures/2026-retreat-lab-9.jpeg"
+  caption="Canoeing 3"
 %}
 {% endcapture %}
 {% include grid.html content=gallery %}
