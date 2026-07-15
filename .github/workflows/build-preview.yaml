@@ -31,6 +31,9 @@ jobs:
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.head_ref }}
+          # full history so jekyll-last-modified-at can read per-file commit
+          # dates; a shallow clone makes every file fall back to checkout mtime
+          fetch-depth: 0
 
       - name: Install Ruby packages
         if: github.event.action != 'closed'
