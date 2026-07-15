@@ -1,6 +1,6 @@
 ---
 title: JSDB-SFBD 59th Annual Meeting
-image: images/lab-pictures/2026-retreat-lab-6.jpeg
+image: images/lab-pictures/2026-hiroshima-1.jpeg
 author: christopher-mazzerbo
 tags: lunch, social
 ---
