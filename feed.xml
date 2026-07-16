@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://guignardlab.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://guignardlab.com/" rel="alternate" type="text/html" /><updated>2026-07-16T07:28:19+00:00</updated><id>https://guignardlab.com/feed.xml</id><title type="html">Computer Science, Morphogenesis and Variability</title><subtitle>We develop computational methods to quantify morphogenesis at the single-cell scale in whole organisms throughout their development. Our research sits at the intersection of computer vision, machine learning, and developmental biology.</subtitle><entry><title type="html">Music at the IBDM summer anniversary</title><link href="https://guignardlab.com/2026/07/02/ibdm-summer-anniversary.html" rel="alternate" type="text/html" title="Music at the IBDM summer anniversary" /><published>2026-07-02T00:00:00+00:00</published><updated>2026-07-07T12:37:46+00:00</updated><id>https://guignardlab.com/2026/07/02/ibdm-summer-anniversary</id><content type="html" xml:base="https://guignardlab.com/2026/07/02/ibdm-summer-anniversary.html"><![CDATA[<p>The IBDM celebrated its summer anniversary with live music in the courtyard, performed by a band of institute members, amongst them Miquel playing trombone.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.2">Jekyll</generator><link href="https://guignardlab.com/feed.xml" rel="self" type="application/atom+xml" /><link href="https://guignardlab.com/" rel="alternate" type="text/html" /><updated>2026-07-16T07:29:28+00:00</updated><id>https://guignardlab.com/feed.xml</id><title type="html">Computer Science, Morphogenesis and Variability</title><subtitle>We develop computational methods to quantify morphogenesis at the single-cell scale in whole organisms throughout their development. Our research sits at the intersection of computer vision, machine learning, and developmental biology.</subtitle><entry><title type="html">Music at the IBDM summer anniversary</title><link href="https://guignardlab.com/2026/07/02/ibdm-summer-anniversary.html" rel="alternate" type="text/html" title="Music at the IBDM summer anniversary" /><published>2026-07-02T00:00:00+00:00</published><updated>2026-07-07T12:37:46+00:00</updated><id>https://guignardlab.com/2026/07/02/ibdm-summer-anniversary</id><content type="html" xml:base="https://guignardlab.com/2026/07/02/ibdm-summer-anniversary.html"><![CDATA[<p>The IBDM celebrated its summer anniversary with live music in the courtyard, performed by a band of institute members, amongst them Miquel playing trombone.</p>
 
 <div class="grid" data-style="">
   
@@ -33,7 +33,7 @@
 </figure>
 
 
-</div>]]></content><author><name>leo-guignard</name></author><category term="ibdm," /><category term="celebration" /><summary type="html"><![CDATA[The IBDM celebrated its summer anniversary with live music in the courtyard, performed by a band of institute members, amongst them Miquel playing trombone.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://guignardlab.com/images/lab-pictures/2026-IBDM-summer-anniversary-music-1.jpeg" /><media:content medium="image" url="https://guignardlab.com/images/lab-pictures/2026-IBDM-summer-anniversary-music-1.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Shared group retreat with the groups of julia Schaeffer and Christopher Thomas</title><link href="https://guignardlab.com/2026/06/17/shared-group-retreat.html" rel="alternate" type="text/html" title="Shared group retreat with the groups of julia Schaeffer and Christopher Thomas" /><published>2026-06-17T00:00:00+00:00</published><updated>2026-07-07T13:13:01+00:00</updated><id>https://guignardlab.com/2026/06/17/shared-group-retreat</id><content type="html" xml:base="https://guignardlab.com/2026/06/17/shared-group-retreat.html"><![CDATA[<p>We went on a 3 day shared group retreat with the groups of Julia Schaeffer and Christopher Thomas.</p>
+</div>]]></content><author><name>leo-guignard</name></author><category term="ibdm," /><category term="celebration" /><summary type="html"><![CDATA[The IBDM celebrated its summer anniversary with live music in the courtyard, performed by a band of institute members, amongst them Miquel playing trombone.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://guignardlab.com/images/lab-pictures/2026-IBDM-summer-anniversary-music-1.jpeg" /><media:content medium="image" url="https://guignardlab.com/images/lab-pictures/2026-IBDM-summer-anniversary-music-1.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Shared group retreat with the groups of Julia Schaeffer and Christopher Thomas</title><link href="https://guignardlab.com/2026/06/17/shared-group-retreat.html" rel="alternate" type="text/html" title="Shared group retreat with the groups of Julia Schaeffer and Christopher Thomas" /><published>2026-06-17T00:00:00+00:00</published><updated>2026-07-15T08:16:20+00:00</updated><id>https://guignardlab.com/2026/06/17/shared-group-retreat</id><content type="html" xml:base="https://guignardlab.com/2026/06/17/shared-group-retreat.html"><![CDATA[<p>We went on a 3 day shared group retreat with the groups of Julia Schaeffer and Christopher Thomas.</p>
 
 <div class="grid" data-style="">
   
@@ -112,8 +112,88 @@
   
 </figure>
 
+<figure class="figure">
+  <a class="figure-image" aria-label="Canoeing 1">
+    <img src="/images/lab-pictures/2026-retreat-lab-7.jpeg" style="
+        width: auto;
+        max-height: unset;
+      " alt="Canoeing 1" loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;" />
+  </a>
+  
+    <figcaption class="figure-caption">
+      Canoeing 1
 
-</div>]]></content><author><name>leo-guignard</name></author><category term="lab" /><category term="retreat," /><category term="social" /><summary type="html"><![CDATA[We went on a 3 day shared group retreat with the groups of Julia Schaeffer and Christopher Thomas.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://guignardlab.com/images/lab-pictures/2026-retreat-lab-6.jpeg" /><media:content medium="image" url="https://guignardlab.com/images/lab-pictures/2026-retreat-lab-6.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Going out for few drinks</title><link href="https://guignardlab.com/2026/05/29/lab-and-friends-drinks.html" rel="alternate" type="text/html" title="Going out for few drinks" /><published>2026-05-29T00:00:00+00:00</published><updated>2026-07-07T12:37:46+00:00</updated><id>https://guignardlab.com/2026/05/29/lab-and-friends-drinks</id><content type="html" xml:base="https://guignardlab.com/2026/05/29/lab-and-friends-drinks.html"><![CDATA[<p>We went out for a couple of drinks together.</p>
+    </figcaption>
+  
+</figure>
+
+<figure class="figure">
+  <a class="figure-image" aria-label="Canoeing 2">
+    <img src="/images/lab-pictures/2026-retreat-lab-8.jpeg" style="
+        width: auto;
+        max-height: unset;
+      " alt="Canoeing 2" loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;" />
+  </a>
+  
+    <figcaption class="figure-caption">
+      Canoeing 2
+
+    </figcaption>
+  
+</figure>
+
+<figure class="figure">
+  <a class="figure-image" aria-label="Canoeing 3">
+    <img src="/images/lab-pictures/2026-retreat-lab-9.jpeg" style="
+        width: auto;
+        max-height: unset;
+      " alt="Canoeing 3" loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;" />
+  </a>
+  
+    <figcaption class="figure-caption">
+      Canoeing 3
+
+    </figcaption>
+  
+</figure>
+
+
+</div>]]></content><author><name>leo-guignard</name></author><category term="lab" /><category term="retreat," /><category term="social" /><summary type="html"><![CDATA[We went on a 3 day shared group retreat with the groups of Julia Schaeffer and Christopher Thomas.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://guignardlab.com/images/lab-pictures/2026-retreat-lab-6.jpeg" /><media:content medium="image" url="https://guignardlab.com/images/lab-pictures/2026-retreat-lab-6.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">JSDB-SFBD 59th Annual Meeting</title><link href="https://guignardlab.com/2026/06/14/hiroshima-conference.html" rel="alternate" type="text/html" title="JSDB-SFBD 59th Annual Meeting" /><published>2026-06-14T00:00:00+00:00</published><updated>2026-07-15T08:18:40+00:00</updated><id>https://guignardlab.com/2026/06/14/hiroshima-conference</id><content type="html" xml:base="https://guignardlab.com/2026/06/14/hiroshima-conference.html"><![CDATA[<p>Miquel, Mariam and Christopher went to Hiroshima for the 59th annual meeting of the Japanese Society of Developmental Biologists.</p>
+
+<div class="grid" data-style="">
+  
+<figure class="figure">
+  <a class="figure-image" aria-label="Lunch together in the conference room">
+    <img src="/images/lab-pictures/2026-hiroshima-1.jpeg" style="
+        width: auto;
+        max-height: unset;
+      " alt="Lunch together in the conference room" loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;" />
+  </a>
+  
+    <figcaption class="figure-caption">
+      Lunch together in the conference room
+
+    </figcaption>
+  
+</figure>
+
+<figure class="figure">
+  <a class="figure-image" aria-label="Dinner with other members of the SFBD">
+    <img src="/images/lab-pictures/2026-hiroshima-2.jpeg" style="
+        width: auto;
+        max-height: unset;
+      " alt="Dinner with other members of the SFBD" loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;" />
+  </a>
+  
+    <figcaption class="figure-caption">
+      Dinner with other members of the SFBD
+
+    </figcaption>
+  
+</figure>
+
+
+</div>]]></content><author><name>christopher-mazzerbo</name></author><category term="lunch," /><category term="social" /><summary type="html"><![CDATA[Miquel, Mariam and Christopher went to Hiroshima for the 59th annual meeting of the Japanese Society of Developmental Biologists.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://guignardlab.com/images/lab-pictures/2026-hiroshima-1.jpeg" /><media:content medium="image" url="https://guignardlab.com/images/lab-pictures/2026-hiroshima-1.jpeg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Going out for few drinks</title><link href="https://guignardlab.com/2026/05/29/lab-and-friends-drinks.html" rel="alternate" type="text/html" title="Going out for few drinks" /><published>2026-05-29T00:00:00+00:00</published><updated>2026-07-07T12:37:46+00:00</updated><id>https://guignardlab.com/2026/05/29/lab-and-friends-drinks</id><content type="html" xml:base="https://guignardlab.com/2026/05/29/lab-and-friends-drinks.html"><![CDATA[<p>We went out for a couple of drinks together.</p>
 
 <figure class="figure">
   <a class="figure-image" aria-label="Having few drinks with colleagues and friends 3">
