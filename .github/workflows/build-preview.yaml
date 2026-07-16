@@ -27,10 +27,13 @@ jobs:
 
       - name: Checkout branch contents
         if: github.event.action != 'closed'
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.head_ref }}
+          # full history so jekyll-last-modified-at can read per-file commit
+          # dates; a shallow clone makes every file fall back to checkout mtime
+          fetch-depth: 0
 
       - name: Install Ruby packages
         if: github.event.action != 'closed'
@@ -42,7 +45,7 @@ jobs:
       - name: Get Pages url
         if: github.event.action != 'closed'
         id: pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
 
       - name: SSH debug
         if: runner.debug == '1'
@@ -61,7 +64,7 @@ jobs:
           umbrella-dir: ${{ env.PREVIEWS_FOLDER }}
 
       - name: Checkout Pages branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           ref: gh-pages
 

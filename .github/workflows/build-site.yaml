@@ -25,7 +25,11 @@ jobs:
         uses: crazy-max/ghaction-dump-context@v2
 
       - name: Checkout branch contents
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+        with:
+          # full history so jekyll-last-modified-at can read per-file commit
+          # dates; a shallow clone makes every file fall back to checkout mtime
+          fetch-depth: 0
 
       - name: Install Ruby packages
         uses: ruby/setup-ruby@v1
