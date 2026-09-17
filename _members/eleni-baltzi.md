@@ -1,8 +1,8 @@
 ---
 name: Eleni Baltzi
 image: images/team/Eleni-Baltzi.jpg
-role: undergrad
-description: M2 Intern
+role: programmer
+description: Software Engineer
 ---
 
 Master’s student in Computational Biology with a background in biotechnology and genomics. She is currently pursuing an M2 in Computational & Mathematical Biology at Aix-Marseille Université.
