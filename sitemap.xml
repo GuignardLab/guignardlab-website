@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>https://guignardlab.com/members/Raquel-Nobrega.html</loc>
+<lastmod>2026-10-07T13:27:53+00:00</lastmod>
+</url>
+<url>
 <loc>https://guignardlab.com/members/christopher-mazzerbo.html</loc>
 <lastmod>2026-07-07T12:37:46+00:00</lastmod>
 </url>
@@ -57,11 +61,11 @@
 <lastmod>2026-07-07T12:37:46+00:00</lastmod>
 </url>
 <url>
-<loc>https://guignardlab.com/software/</loc>
+<loc>https://guignardlab.com/team/</loc>
 <lastmod>2026-07-09T06:30:28+00:00</lastmod>
 </url>
 <url>
-<loc>https://guignardlab.com/research/</loc>
+<loc>https://guignardlab.com/software/</loc>
 <lastmod>2026-07-09T06:30:28+00:00</lastmod>
 </url>
 <url>
@@ -69,11 +73,11 @@
 <lastmod>2026-07-09T06:30:28+00:00</lastmod>
 </url>
 <url>
-<loc>https://guignardlab.com/team/</loc>
+<loc>https://guignardlab.com/lab-pictures/</loc>
 <lastmod>2026-07-09T06:30:28+00:00</lastmod>
 </url>
 <url>
-<loc>https://guignardlab.com/lab-pictures/</loc>
+<loc>https://guignardlab.com/research/</loc>
 <lastmod>2026-07-09T06:30:28+00:00</lastmod>
 </url>
 <url>
@@ -82,6 +86,6 @@
 </url>
 <url>
 <loc>https://guignardlab.com/googleecbde79c2b80c9e5.html</loc>
-<lastmod>2026-09-17T10:51:26+00:00</lastmod>
+<lastmod>2026-10-07T14:27:34+00:00</lastmod>
 </url>
 </urlset>
