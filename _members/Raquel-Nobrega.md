@@ -1,5 +1,5 @@
 ---
-name: Raquel Nóbrega:
+name: Raquel Nóbrega
 image: images/team/Raquel-Nobrega.jpg
 role: phd
 ---
